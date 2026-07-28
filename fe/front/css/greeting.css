@@ -1,0 +1,17 @@
+center {
+    display: block;
+    margin-top: 80px;
+    font-size: 28px;
+    font-weight: 700;
+    color:blue;
+}
+
+/* .은 class를 의미하는 속성을 찾는다
+#은 id를 의미하는 속성을 찾는다 */
+.btn{
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    background-color: black;
+}
