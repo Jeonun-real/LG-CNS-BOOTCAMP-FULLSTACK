@@ -1,0 +1,54 @@
+.container{
+    /* 굵기, 스타일, 색 */
+    border: 10px solid red;
+    width : 1000px;
+}
+
+.tour-intro{
+     border: 1px solid blue;
+     text-align: center;
+     color: antiquewhite;
+     background-color: black;
+     font-weight: bold;
+     margin-top: 10px;
+}
+
+.tour-list{
+    border: 1px solid pink;
+    width: 1000px;
+    overflow: hidden;
+}
+
+/* 직계로 img 찾아가기 */
+.tour-list > .tour-prd > a > img {
+    width: 200px;
+    border-radius: 50%;
+}
+
+/* 후손을 적용 */
+.tour-prd > a {
+    text-decoration: none;
+}
+
+/* 태그선택자 */
+button {
+    width: 180px;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 10px 5px 10px 10px;
+}
+
+.tour-prd h3, button {
+    text-align: center;
+} 
+
+.tour-prd {
+    display: inline-block;
+    width: 200px;
+    border: 1px solid purple ;
+    margin: 5px 30px 10px 15px;
+}
+
+span{
+    color: blue;
+}

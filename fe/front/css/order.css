@@ -1,0 +1,32 @@
+/*
+반응형 웹 (media query)
+- 브라우저 행당도에 따라서 컴포넌트의 배치를 달리하는 것
+html - text size : 16px(고정크기)
+bootstrap - text size : em(1em = 16px) (상대크기)
+*/
+.box >.accent {
+    color: red;
+}
+
+h2{
+    text-align: center;
+    color: red;
+    font-size: 16px;
+}
+
+h2[text^="c"]{
+    color: blue;
+}
+
+.text-small{
+    font-size: 0.7em;
+}
+
+.box{
+    border: 1px solid red;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 2em;
+}

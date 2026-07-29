@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>reservation</title>
+        <link href="../css/reservation.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <form action="./thanks.html" method="get">
+            <!-- fieldset = boarder에 타이틀 같은걸 넣어서 표출 -->
+            <fieldset>
+                <legend>배송예약 정보입력</legend>
+                <ul>
+                    <li>
+                        <label>주문상품</label>
+                        <input
+                            type="text"
+                            id="prd-name"
+                            name="prd-name"
+                            placeholder="상품정보를 입력하세요"/>
+                    </li>
+                    <li>
+                        <label>주문자명</label>
+                        <input 
+                            type ="text"
+                            id ="prd-user-name"
+                            name="prd-user-name"
+                            placeholder="주문자이름을 입력하세요"/>
+                    </li>
+                    <li>
+                        <label>배송지</label>
+                        <input 
+                            type ="text"
+                            id ="prd-user-address"
+                            name="prd-user-address"
+                            placeholder="배송지를 입력하세요"/>
+                    </li>
+                    <li>
+                        <label>이메일</label>
+                        <input 
+                            type ="email"
+                            id ="prd-user-email"
+                            name="prd-user-email"
+                            placeholder="이메일을 입력하세요"/>
+                    </li>
+                     <li>
+                        <label>배송일 지정</label>
+                        <input 
+                            type ="date"
+                            id ="prd-user-date"
+                            name="prd-user-date"
+                            placeholder="배송일을 입력하세요"/>
+                    </li>
+
+                    <div align = center>
+                        <button type="submit">예약</button>
+                        <button type="reset">취소</button>
+                    </div>
+                </ul>
+            </fieldset>
+        </form>
+    </body>
+</html>
