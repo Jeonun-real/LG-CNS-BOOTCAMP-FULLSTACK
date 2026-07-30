@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- bootstrap CDN -->
+        <!-- Latest compiled and minified CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+        <title>Document</title>
+    </head>
+    <body>
+
+
+        <div class="container">
+            
+            <div class="mb-3 mt-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+            </div>
+            <div class="mb-3">
+                <label for="pwd" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+            </div>
+
+            <div id="err_empty_email_pwd" style = "display: none;">
+                <div class="err_msg">
+                    이메일 또는 패스워들 입력해 주세요
+                </div>
+            </div>
+
+
+            <div class="form-check mb-3">
+                <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                </label>
+            </div>
+            <button type="button" class="btn btn-primary" id="signInBtn">Submit</button>
+
+        </div>
+
+        
+        <script>
+
+            //통신을 통해서 서버로부터 전달받은 데이터 포맷은(객체 or 배열)
+            const user = {
+                email : "fasdfasdfas@naver.com",
+                password:"123445"
+            };
+
+            //page load event
+            //document를 렌더링 또는 리렌더링 시키는 구조
+
+            document.querySelector("#email").value = user.email;
+            document.querySelector("#pwd").value = user.password;
+
+            document.querySelector("#signInBtn").onclick = () => {
+                window.alert("button click");
+                let email = document.querySelector("#email").value;
+                let password = document.querySelector("#pwd").value;
+                console.log(`debug >>> email : ${email}`);
+                console.log(`debug >>> passwd : ${password}`);
+                if(email == "" || password == ""){
+                    document.querySelector("#err_empty_email_pwd").style.display = 'block';
+                    document.querySelector("#err_empty_email_pwd").style.color = 'red';
+
+                } else{
+                    location.href = `http://ip:port/context/action?email=${email}&passwd=${password}`
+                }
+            }
+            /*
+            array - filter(arrow fuction
+            조건문(condition) : if(조건식), switch ~ case 구문
+            - 특정 조건을 만족할때만 코드를 실행
+            - 조건에 따라 다른 동작
+        
+            */
+
+            // let age = 18;
+            // let price = 48000;
+            // if(age >=19){
+            //     console.log(`성인인증 되었습니다. 가격은 ${price}`);
+            // } else{
+            //     console.log(`청소년 인증되었습니다. 가격은 ${price/2}`);
+            // }
+
+            
+                // console.log(`debug>>> switch ~case`);
+                // // "1"===1 : 형변환
+                // let choice = window.pormpt("자판기에서 원하는 메뉴 번호를 선택하세요");
+                // console.log(`debug>>>> choice number ${typeof choice}`);
+                // console.log(`debug>>>> choice number ${choice}`);
+                // switch(choice){
+                //     case 1 :choice
+                //         console.log("debug >>> 토레타");
+                //         break
+                //     case 2:
+                //         console.log("debug >>> 토레타");
+                //         break
+                //     case 3:
+                //         console.log("debug >>> 토레타");
+                //         break
+                //     default:
+                //         console.log("debug >>> 메뉴 번호만 서비스 가능");
+                // }
+            // console.log("삼항연산자 : 조건식?true:false or 조건식");
+            // choice === 1 ? console.log("debug >>> 토레타"):
+            // choice === 2 ? console.log("debug >>> 토레타"):
+            // choice === 3 ? console.log("debug >>> 토레타"):
+            // console.log("debug >>> 메뉴 번호만 서비스 가능");
+
+
+           
+
+
+        </script>
+
+    </body>
+</html>

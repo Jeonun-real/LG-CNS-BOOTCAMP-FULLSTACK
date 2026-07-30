@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+
+        <script>
+            /*
+            함수(function) vs 메서드(method)
+            arrow fuction vs lamda express
+            * 코드 블럭(특정 기능을 수행하기 위한)
+            */
+           
+           // definition
+            function test(x, y){
+                return x+y;
+           }
+           //calling
+           let result = test(10,20);
+           console.log(`debug>>>result ${result}`);
+           
+           
+           let btnHandler = function(){
+                console.log("익명의 함수입니다")
+           };
+           console.log(`debug>>>fuction type ${typeof btnHandler}`);
+           btnHandler();
+
+           //es6 : arrow function
+           let arrowFunc = () =>{
+                console.log("화살표 함수 호출");
+           };
+           arrowFunc();
+
+           let add = (a,b) => a + b;
+           console.log(`debug>>>add functon ${add(10,30)}`);
+
+           let add2 = (a,b)=>{
+                return a+b;
+           };
+           console.log(`debug>>>add functon ${add2(10,30)}`);
+
+           let obj = {
+                name : 'jslim',
+                study : function(){
+                    return['html','script','css'];
+                }
+           };
+        
+           let ary = obj.study();
+           console.log('debug>>>ary', ary);
+
+           //es6
+           //구조분해 - destructuring
+
+            // obj2 = {
+            //     name: 'jslim',
+            //     study: function () {
+            //         return {
+            //             html: html ,
+            //             script: script,
+            //             css: css
+            //         };
+            //     }
+            // };      
+
+            // let { html, script, css } = obj2.study();
+            // console.log(script);
+
+        //     //축약문법
+        //     let html = "html";
+        //     let script = "script";
+        //     let css = "css";
+
+        //     let obj3 = {
+        //         name : 'jslim',
+        //         study : function(){
+        //             return{
+        //                 html,
+        //                 script,
+        //                 css
+        //             }
+        //         }
+        //    };
+            console.log('debug>>> 배열변수와 함께 사용되는 함수와 람다식');
+            const ages = [20, 23, 26, 30, 42, 56];
+
+            const newAges = ages.map(age => age*2);
+            console.log(newAges);
+        
+           const evenAges = ages.filter(age=>age%2===0);
+           console.log(evenAges);
+
+           /*
+           Q1)
+           - email의 값을 키로하고 nickname 값을 값으로 하는 새로운 객체를 만들려고 한다.
+           - 즉 배열을 가공하여 하나의 객체로 합치는 것
+           - array : reduce(acc,cur,idx,ary) 함수
+           - acc는 새로 누적, cur 현재 배열 처리, idx 현재 인덱스, ary 원본 배열
+           */
+           const userAry= [
+                {email:'naver.com',nickName:'Ironman'},
+                {email:'google.com',nickName:'Bob'},
+                {email:'daum.com',nickName:'Alice'}
+           ];
+
+           const reduceAry=userAry.reduce((obj,cur)=>{
+                obj[cur.email] = cur.nickName;
+                return obj;
+           },{});
+
+
+           console.log(reduceAry);
+
+           
+
+        </script>
+        
+    </body>
+</html>

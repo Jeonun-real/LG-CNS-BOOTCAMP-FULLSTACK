@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+
+        <div id="display"></div>
+
+        <script>
+            /*
+            배열 : [] - 객체가 소유하고 있는 함수(map, filter, reduce)
+            반복구문은 특정데이터를 반복할떄 사용하는 문법
+            -for each, for in, for of
+            */
+            // console.log("일반 for")
+            // const loopAry = [1,2,3,4,5,6,7,8,9,10];
+            for(let idx=0; idx<loopAry.length; idx++){
+                console.log(`idx=${idx},value = ${loopAry[idx]}`);
+            }
+
+            // console.log("foreach")
+            // loopAry.forEach((value,idx)=>{
+            //     console.log(`idx=${idx},value = ${value}`);
+            // });
+
+            // console.log("forin")
+            // for(let idx in loopAry){
+            //     console.log(`idx=${idx},value = ${loopAry[idx]}`);
+            // }
+
+            // document.getElementById("display").textContent = "아침부터 재미있다"
+
+
+            let img = 'xxxx.png';
+            let heading = 'xxxxx';
+            let cardAry =[
+                {
+                    img,
+                    heading
+                },
+                {
+                    img,
+                    heading
+                }                
+            ]
+            let divTag = "";
+            cardAry.forEach( (obj) => {
+                divTag += `<div><img src='${obj.img}'>` ; 
+                divTag += `<h2>${obj.heading}</h2></div>` ;      
+            });
+            document.getElementById("display").innerHTML = divTag ;
+        </script>
+        
+    </body>
+</html>
