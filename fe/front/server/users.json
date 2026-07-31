@@ -1,0 +1,22 @@
+[
+    {
+        "name" : "입섭순",
+        "major" : "cs",
+        "phone" : "010-1234-5678"
+    },
+    {
+        "name": "김민수",
+        "major": "business",
+        "phone": "010-2345-6789"
+    },
+    {
+        "name": "이서연",
+        "major": "psychology",
+        "phone": "010-3456-7890"
+    },
+    {
+        "name": "박지훈",
+        "major": "industrial engineering",
+        "phone": "010-4567-8901"
+    }
+]

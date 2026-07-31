@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../css/create.css" rel="stylesheet">        
+
+</head>
+<body>
+    <h2>사용자 목록</h2>
+    
+    <div class="container" id="container"></div>
+
+
+
+    <script>
+        ary = [] ;
+        const loadData = async () => {
+            await 
+                fetch('https://jsonplaceholder.typicode.com/users')
+                .then( response => response.json())
+                .then( data => {
+                    console.log(`debug >>>> data ` , data);  
+                    ary = data ; 
+                    console.log("ary=" , ary);
+                })
+                .catch( error => {
+                    console.log(`debug >>>> error ${error}`);  
+                });
+            makeCard();
+        }
+
+        const makeCard = (e) => {
+
+            container.innerHTML = '' ;
+            ary.forEach( (object, idx) => {
+                const card = document.createElement('div');
+                card.className = 'card' ;
+
+                const name  = document.createElement('h3');
+                name.textContent = object.username;
+                const major = document.createElement('p');
+                major.textContent = object.email;
+                const phone = document.createElement('p');
+                phone.textContent = object.address?.city??'seoul';
+
+                // button 
+                const delBtn = document.createElement('button');
+                delBtn.className = 'btn';
+                delBtn.textContent = '삭제' ;
+
+                delBtn.onclick = (e) => {
+                    window.alert(`button click`);
+                    ary.splice(idx, 1) ;
+                    makeCard() ;
+                };
+
+
+                card.appendChild(name);
+                card.appendChild(major);
+                card.appendChild(phone);
+                card.appendChild(delBtn); 
+                container.appendChild(card) ;
+            });
+        } 
+        
+        const init = async () => {
+            await loadData();
+            makeCard();
+        }
+        init() ;
+        
+    </script>
+</body>
+</html>

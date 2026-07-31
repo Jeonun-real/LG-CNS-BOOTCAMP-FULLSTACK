@@ -1,0 +1,77 @@
+:root {
+    --color-coffee: #4b3621;
+    --color-coffee-light: #7a5c3e;
+    --color-bg: #faf6f1;
+    --shadow-card: 0 8px 20px rgba(75, 54, 33, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    background-color: var(--color-bg);
+    font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    color: var(--color-coffee);
+}
+
+body > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 0;
+    transition: color 200ms ease;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: var(--shadow-card);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+img:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 28px rgba(75, 54, 33, 0.22);
+}
+
+#btn {
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    background-color: var(--color-coffee);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 150ms ease, transform 150ms ease;
+}
+
+#btn:hover {
+    background-color: var(--color-coffee-light);
+}
+
+#btn:active {
+    transform: scale(0.97);
+}
+
+#btn:focus-visible {
+    outline: 2px solid var(--color-coffee-light);
+    outline-offset: 2px;
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "제주 흑돼지 김치찌개",
+    "description": "제주산 흑돼지와 잘 익은 김치로 끓여낸 얼큰한 찌개입니다.",
+    "image": "https://picsum.photos/seed/food1/400/250",
+    "price": 12000,
+    "tag": "인기"
+  },
+  {
+    "id": 2,
+    "title": "한라봉 에이드",
+    "description": "상큼한 제주 한라봉을 그대로 갈아 넣은 시원한 에이드입니다.",
+    "image": "https://picsum.photos/seed/food2/400/250",
+    "price": 6500,
+    "tag": "신메뉴"
+  },
+  {
+    "id": 3,
+    "title": "고등어 정식",
+    "description": "제주 앞바다에서 잡은 신선한 고등어를 구워 정식으로 구성했습니다.",
+    "image": "https://picsum.photos/seed/food3/400/250",
+    "price": 15000,
+    "tag": ""
+  },
+  {
+    "id": 4,
+    "title": "오메기떡 세트",
+    "description": "쫄깃한 제주 전통 떡, 오메기떡을 8개입으로 구성했습니다.",
+    "image": "https://picsum.photos/seed/food4/400/250",
+    "price": 9000,
+    "tag": "선물추천"
+  },
+  {
+    "id": 5,
+    "title": "전복 뚝배기",
+    "description": "싱싱한 전복을 듬뿍 넣고 끓인 든든한 뚝배기 요리입니다.",
+    "image": "https://picsum.photos/seed/food5/400/250",
+    "price": 18000,
+    "tag": ""
+  },
+  {
+    "id": 6,
+    "title": "감귤 초콜릿",
+    "description": "제주 감귤 과육을 넣어 만든 달콤한 수제 초콜릿입니다.",
+    "image": "https://picsum.photos/seed/food6/400/250",
+    "price": 8000,
+    "tag": "인기"
+  }
+]

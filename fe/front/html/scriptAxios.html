@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.19.0/dist/axios.min.js"></script>
+        <link href="../css/asios.css" rel="stylesheet">
+    </head>
+
+
+    <body>
+        <h1>상품목록</h1>
+        <div class="container" id="container"></div>
+
+
+        <script>
+            let ary = [];
+
+            const loadData = async (e)=>{
+                await axios
+                .get("https://fakestoreapi.com/products")
+                .then(response=>{
+                    ary = response.data;
+                })
+                .catch(error => {
+                    console.log(`debug >>>> error ${error}`);
+                })
+                .finally(()=>{
+                    console.log(`complete`);
+                })
+
+            }
+
+            const makeProduct=(e)=>{
+                container.innerHTML = '';
+
+                ary.forEach((product, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    const img = document.createElement('img');
+                    img.className = 'card-img';
+                    img.src = product.image;
+                    img.alt = product.title;
+
+                    const title = document.createElement('h3');
+                    title.className = 'card-title';
+                    title.textContent = product.title;
+
+                    const price = document.createElement('p');
+                    price.className = 'card-price';
+                    price.textContent = `$${product.price.toFixed(2)}`;
+
+                    const buyBtn = document.createElement('button');
+                    buyBtn.className = 'btn';
+                    buyBtn.textContent = '담기';
+
+                    buyBtn.onclick = (e) => {
+                        window.alert(`${product.title} 담김`);
+                    };
+
+                    card.appendChild(img);
+                    card.appendChild(title);
+                    card.appendChild(price);
+                    card.appendChild(buyBtn);
+                    container.appendChild(card);
+                });
+            }
+            const init=async(e)=>{
+                await loadData();
+                makeProduct();
+            }
+            init();
+        </script>
+
+    </body>
+
+</html>
