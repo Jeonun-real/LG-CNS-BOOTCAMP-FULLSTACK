@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+
+        <script>
+            //spread opeator
+            //객체 또는 배열값을 다른 객체, 배열로 복제하거나 옮길때 사용
+            //단순 = 시 주소값을 할당받아 같은 객체를 참조하게 됨
+            //그래서 하나바꾸면 바꾸지 않은 오리지널도 변경됨
+            let objOriginal ={
+                a :10,
+                b:20
+            };
+
+            let ary = [1,2,3];
+            let newAry = {...ary};
+
+
+            //주소 복사(잘못된 코드)
+            // let objNew = objOriginal;
+            // console.log('debug', objNew === objOriginal);
+
+            // objNew.a =20;
+            // console.log('objnew',objNew);
+            // console.log('objorigin',objOriginal);
+
+            //spread opeator(옮게된 코드)
+            // console.log('spread operator');
+            // objNew = {...objOriginal};
+            // objNew.a=20;
+            // console.log('objnew',objNew);
+            // console.log('objorigin',objOriginal);
+
+            //구조분해
+            //props(내장객체)
+            //props.a, props.b
+            //a , b
+            // let{a,b} = objOriginal;
+
+            //oprtional chaining
+            //객체속성의 유효성을 체크
+            // ?.
+            // const user ={
+            //     name:{
+            //         first :'lim',
+            //         last : 'js'
+            //     },
+            //     address : {
+            //         city: 'seoul',
+            //         postcode: 'asdfasfasf',
+            //     }
+            // }
+
+            // const postcode = user.address && user.address.postcode;
+
+            //enhanced object literal : 축약문법
+            
+            // let lang = 'lang'
+            // let subject = {
+            //     lang,
+            //     coding(){
+            //         console.log('coding');
+            //     }
+            // }
+
+
+
+        </script>
+        
+    </body>
+</html>

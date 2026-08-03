@@ -18,8 +18,7 @@
             let ary = [];
 
             const loadData = async (e)=>{
-                await axios
-                .get("https://fakestoreapi.com/products")
+                await axios.get("https://fakestoreapi.com/products")
                 .then(response=>{
                     ary = response.data;
                 })
