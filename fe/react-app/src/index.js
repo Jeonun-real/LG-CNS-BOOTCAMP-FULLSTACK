@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import LibraryPage from './pages/sample/LibraryPage';
-import ButtonPage from './material/ButtonPage';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -13,11 +11,14 @@ import ButtonPage from './material/ButtonPage';
 //   </React.StrictMode>
 // );
 
+
+// import LibraryPage from './pages/sample/LibraryPage';
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
 //     <LibraryPage />
 // );
 
+// import ButtonPage from './material/ButtonPage';
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
 //     <ButtonPage />
@@ -26,13 +27,32 @@ import ButtonPage from './material/ButtonPage';
 // import {CommentPage as Application} from './pages/sample/CommentPage';
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
-//     <Appliciotion />
+//     <Application />
 // );
 
-import CapacityPage from './pages/reactive/CapacityPage';
+// import CapacityPage from './pages/reactive/CapacityPage';
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//     <CapacityPage />
+// );
+
+// import EventPage from './pages/event/EventPage';
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//     <EventPage />
+// );
+
+// import TestRouterApp from './TestRouterApp';
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//     <TestRouterApp /> 
+// );
+
+
+import RenderingPage from './pages/rendering/RenderingPage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <CapacityPage />
+    <RenderingPage /> 
 );
 
 // If you want to start measuring performance in your app, pass a function

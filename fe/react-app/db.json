@@ -13,6 +13,14 @@
         "comment":"강사님과 함께하는 즐겁지아니한 react 수업입니다."
     }
 
+    ],
+
+    "users":[
+        {
+            "email" : "tjwjddns1302@gmail.com",
+            "pswd" : "1234",
+            "name" : "서정운"
+        }
     ]
 }
 

@@ -8,7 +8,11 @@ const CapacityPage = () => {
     //해단변수는 양방향 실시간 소통이 가능해야 함.
     // let cnt = 0;
     // solution = hook state : useState()
-    let[cnt,setCnt] = useState(0);
+    const capacity =10;
+
+    let[cnt,setCnt] = useState(0); //int 초기화
+    let[full,setFull]=useState(false); //boolean 초기화
+    let[empty,setEmpty]=useState(false); //boolean 초기화
 
 
     const upCntHandler = (e) => {
@@ -27,6 +31,9 @@ const CapacityPage = () => {
     useEffect(()=>{
         console.log('capacitypage lifecycle update');
         console.log(`debug>>side effect cnt: ${cnt}`);
+        setFull(cnt>=capacity);
+        setEmpty(cnt<=0);
+
     },[cnt]);
 
     //////////////////////////////////////////////////
@@ -39,8 +46,16 @@ const CapacityPage = () => {
     return(
         <div>
             <p>입장인원: {cnt}</p>
-            <Button title="입장" onClick={(e)=>upCntHandler()} />
-            <Button title="퇴장" onClick={(e)=>downCntHandler()} />
+            <Button 
+                title="입장" 
+                onClick={(e)=>upCntHandler()}
+                disabled={full} 
+            />
+            <Button 
+                title="퇴장" 
+                onClick={(e)=>downCntHandler()} 
+                disabled={empty} 
+            />
         </div>
     );
 }

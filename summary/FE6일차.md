@@ -1,5 +1,4 @@
 # FE 6일차 핵심 개념 정리
-# FE 6일차 핵심 개념 정리
 
 ## React Component · Props · State · useEffect · API 통신
 

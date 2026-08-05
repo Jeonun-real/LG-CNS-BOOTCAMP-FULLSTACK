@@ -10,8 +10,8 @@ const Comment = ({ data }) => {
                 </img>
             </div>
             <div>
-                <span>책이름 : {data.writer}</span><p/>
-                <span>책가격 : {data.comment}</span>
+                <span>작성자 : {data.writer}</span><p/>
+                <span>댓글 : {data.comment}</span>
 
             </div>
         </div>
