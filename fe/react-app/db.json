@@ -1,26 +1,30 @@
 {
-    "comment" :[
+  "users": [
     {
-        "writer":"임창섭",
-        "comment":"강사님과 함께하는 즐거운 react 수업입니다."
+      "name": "서정운",
+      "email": "tjwjddns1302@gmail.com",
+      "password": "tjwjddns",
+      "id": 1
     },
     {
-        "writer":"서정운",
-        "comment":"강사님과 함께하는 재미없는 react 수업입니다."
-    },    
-    {
-        "writer":"박선아",
-        "comment":"강사님과 함께하는 즐겁지아니한 react 수업입니다."
+      "name": "asdfasfd",
+      "email": "tjwjddns1302@ajou.ac.kr",
+      "password": "tjalswns",
+      "id": 2
     }
-
-    ],
-
-    "users":[
+  ],
+  "blogs" :[        
         {
-            "email" : "tjwjddns1302@gmail.com",
-            "pswd" : "1234",
-            "name" : "서정운"
+            "title" : "TIL 작성" ,
+            "content":"component 작성",
+            "category" : "React",
+            "email" : "tjwjddns1302@ajou.ac.kr"
+        },
+        {
+            "title" : "JAVA작성" ,
+            "content":"component 작성",
+            "category" : "React",
+            "email" : "tjwjddns1302@gmail.com"
         }
     ]
 }
-

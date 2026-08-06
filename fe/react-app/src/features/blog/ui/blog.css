@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+  outline: none;
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
+}
+
+button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+}

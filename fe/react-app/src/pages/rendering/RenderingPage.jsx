@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Greeting     from "../../components/rendering/Greeting";
 import LogoutButton from "../../components/rendering/LogoutButton";
+import LoginButton from "../../components/rendering/LoginButton";
 
 const RenderingPage = () => {
     
@@ -15,7 +16,8 @@ const RenderingPage = () => {
                 flag ?
                     <LogoutButton   isLogin={setFlag}/>
                 :
-                    ''
+                    <LoginButton   isLogin={setFlag}/>
+
             }
         </div>
     )

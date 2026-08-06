@@ -49,10 +49,16 @@ import reportWebVitals from './reportWebVitals';
 // );
 
 
-import RenderingPage from './pages/rendering/RenderingPage';
+// import RenderingPage from './pages/rendering/RenderingPage';
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//     <RenderingPage /> 
+// );
+
+import ToyApp from './ToyApp';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <RenderingPage /> 
+    <ToyApp /> 
 );
 
 // If you want to start measuring performance in your app, pass a function
