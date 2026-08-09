@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Button from "../../../components/styled/Button" ;
 import BlogList from "../list/BlogList";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import api from "../../../api/axios";
 import '../ui/blog.css';
 import { useNavigate } from "react-router-dom";
@@ -150,9 +150,17 @@ const BlogIndexPage = () => {
     
     // 선택된 카테고리에 따라 blogs 필터링
     const [selectedCategory, setSelectedCategory] = useState("전체");
-    const filteredBlogs = selectedCategory === "전체"
-        ? blogs
-        : blogs.filter((blog) => blog.category === selectedCategory);
+    // case 01
+    // const filteredBlogs = selectedCategory === "전체"
+    //     ? blogs
+    //     : blogs.filter((blog) => blog.category === selectedCategory);
+    
+    // case 02 : useMemo() - 성능개선을 위해서 
+    const filteredBlogs = useMemo(() => {
+        return selectedCategory === "전체"
+            ? blogs
+            : blogs.filter((blog) => blog.category === selectedCategory);
+    }, [blogs, selectedCategory] ); 
 
 
     const moveUrl = useNavigate();
@@ -184,7 +192,7 @@ const BlogIndexPage = () => {
                     ))}
                 </CategoryRow>
 
-                <BlogList ary={blogs || []}/>
+                <BlogList ary={filteredBlogs  || []}/>
 
             </Container>
         </Wrapper>

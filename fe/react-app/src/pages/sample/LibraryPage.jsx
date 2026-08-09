@@ -1,37 +1,36 @@
 import Book from "../../components/sample/Book";
 
-const LibraryPage = () => {
-    // jsx = script + html
- 
-    
-    //script
+const Librarypage = () => {
+    /*
+    jsx = script + html
+    */
+    // Script 
     const books = [
-        { category: 'IT', bookName: 'java', price: 30000 },
-        { category: 'IT', bookName: 'python', price: 25000 },
-        { category: 'lang', bookName: 'javascript', price: 20000 },
-        { category: 'lang', bookName: 'react', price: 35000 },
-        { category: 'essay', bookName: 'spring', price: 40000 },
-        { category: 'essay', bookName: 'nodejs', price: 30000 }
+        {category : 'it',       bookName : 'java', price : '10,000원'},
+        {category : 'it',       bookName : 'java', price : '10,000원'},
+        {category : 'lang',     bookName : 'kor',  price : '10,000원'},
+        {category : 'lang',     bookName : 'eng',  price : '10,000원'},
+        {category : 'essay',    bookName : 'xxxx', price : '10,000원'},
+        {category : 'essay',    bookName : 'xxxx', price : '10,000원'}
     ];
-
-    //ui template
-    // html 에서 스크입트 변수를 사용하려면 {} 중괄호를 사용해야 한다.
-    return (
+    
+    // UI Template 
+    // html 에서 스크립트 변수를  {} 를 이용해서 자유롭게 사용 가능 
+    return(
         <div>
+            {/*  */}
             {
-                books.filter(book => book.category==='lang')
-                .map((book, idx) => {
-                    return <Book 
-                                key={idx} 
-                                book ={book}
-                             />
-                })
-
+                books
+                    .filter( book => book.category === 'lang')
+                    .map( (book,idx) => {
+                        return <Book    key={idx}
+                                        book={book} />
+                    })
             }
         </div>
     );
 
+    
 }
 
-
-export default LibraryPage;
+export default Librarypage; 

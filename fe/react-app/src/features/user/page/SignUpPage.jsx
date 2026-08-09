@@ -1,185 +1,153 @@
-import { useState } from "react";
-import styled from "styled-components";
+import React, { useState }  from 'react';
+import styled               from 'styled-components';
 import { Link, useNavigate } from "react-router-dom";
 import api from '../../../api/axios';
 
-
-
-
-const SignUpPage = () => {
-    const moveUrl = useNavigate();
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
-
-    const changeHandler = (e) => {
-        const { name, value } = e.target;
-
-        setFormData((prev) => ({...prev, [name]: value}));
-    };
-
-    const submitHandler = async (e) => {
-        e.preventDefault();
-
-        console.log("회원가입 정보:", formData);
-
-        const data ={...formData};
-
-
-        //json-server 방식 통신
-        await api.post('/users',data)
-            .then(response => {
-                console.log(response);
-                if(response.status===201){
-                    moveUrl('/users/signIn');
-                }
-                else{
-                    console.log('debug');
-                }
-
-            })
-            .catch(err => {
-                console.log(err);
-            })
-
-
-        }
-
-
-    return (
-        <PageContainer>
-            <FormBox onSubmit={submitHandler}>
-                <Title>회원가입</Title>
-
-                <InputGroup>
-                <Label htmlFor="name">이름</Label>
-                <Input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name} 
-                    onChange={changeHandler}
-                    placeholder="이름을 입력하세요"
-                    required
-                />
-                </InputGroup>
-
-                <InputGroup>
-                <Label htmlFor="email">이메일</Label>
-                <Input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={changeHandler}
-                    placeholder="이메일을 입력하세요"
-                    required
-                />
-                </InputGroup>
-
-                <InputGroup>
-                <Label htmlFor="password">패스워드</Label>
-                <Input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={changeHandler}
-                    placeholder="패스워드를 입력하세요"
-                    required
-                />
-                </InputGroup>
-
-                <SubmitButton type="submit">회원가입</SubmitButton>
-                <LoginGuide>
-                    이미 회원가입하셨나요?
-                    <LoginLink to="/users/signIn">
-                    로그인
-                    </LoginLink>
-                </LoginGuide>
-            </FormBox>
-        </PageContainer>
-    );
-};
-
-export default SignUpPage;
-
-const PageContainer = styled.div`
-  min-height: 100vh;
+const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f6f8;
+  height: 100vh;
+  background-color: #f2f2f2;
 `;
 
-const FormBox = styled.form`
-  width: 400px;
-  padding: 40px;
-  border-radius: 12px;
+const FormWrapper = styled.div`
   background-color: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+  width: 400px;
 `;
 
 const Title = styled.h2`
-  margin: 0 0 30px;
   text-align: center;
-`;
-
-const InputGroup = styled.div`
-  display: flex;
-  flex-direction: column;
   margin-bottom: 20px;
-`;
-
-const Label = styled.label`
-  margin-bottom: 8px;
-  font-weight: bold;
+  color: #333;
 `;
 
 const Input = styled.input`
+  width: 100%;
   padding: 12px;
-  border: 1px solid #cccccc;
+  margin-bottom: 15px;
   border-radius: 6px;
+  border: 1px solid #ccc;
   font-size: 16px;
 
   &:focus {
     outline: none;
-    border-color: #4f7cff;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
   }
 `;
 
-const SubmitButton = styled.button`
+const Button = styled.button`
   width: 100%;
   padding: 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: #4f7cff;
+  background-color: #007bff;
   color: white;
+  border: none;
   font-size: 16px;
+  border-radius: 6px;
   cursor: pointer;
+  margin-top: 10px;
 
   &:hover {
-    background-color: #345fd1;
+    background-color: #0056b3;
+  }
+
+  &:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
   }
 `;
 
-const LoginGuide = styled.p`
-  margin-top: 20px;
-  margin-bottom: 0;
+const TextLink = styled(Link)`
+  display: block;
   text-align: center;
+  margin-top: 15px;
   font-size: 14px;
-  color: #666666;
-`;
-
-const LoginLink = styled(Link)`
-  margin-left: 6px;
-  color: #4f7cff;
-  font-weight: bold;
+  color: #007bff;
   text-decoration: none;
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;
   }
 `;
+
+// npm install styled-components @mui/material @mui/icons-material @emotion/react @emotion/styled
+
+const SignUpPage = () => {
+
+    const [form, setForm] = useState({
+        name : '',
+        email : '',
+        password : ''
+    }) ;
+
+    // 기존값을 유지하면서 현재 입력된 필드에 대한 상태변화(업데이트)를 처리 
+    const keyHandler = (e) => {
+        const {name, value} = e.target ;
+        setForm({...form, [name]:value});
+    };
+
+    const moveUrl = useNavigate();
+
+    const signUpHandler = async (e) => {
+        e.preventDefault();
+        console.log(`debug >>>> SignUpPage signUpHandler event`); 
+        const data = {...form} ; 
+        /*
+        Q)
+        - npx json-server --watch db.json --port 5000 
+        - axios(/users) 통신을 통해서 json-server 데이터를 전달하고 저장
+        - post, get, put-patch, delete
+        - 가입성공시(201) - SignInPage 이동( useNavigate ) 
+        - 가입실패(4XX) - 현재페이지에 에러메시지를 출력 
+        */
+       
+        // json-server version
+        await api.post('/users', data)
+                .then( response => {
+                    console.log(`debug >>>> axios request success` , response);  
+                    if( response.status === 201) {
+                        moveUrl('/users/signIn');
+                    } 
+                })
+                .catch( error => {
+                    console.log(`debug >>>> axios request error` , error); 
+                }) 
+
+    }
+
+
+    return(
+        <Container>
+            <FormWrapper>
+                <Title>회원가입</Title>
+                <form onSubmit={signUpHandler}>
+                    <Input  type='text' 
+                            name='name'
+                            placeholder="이름 입력하세요"
+                            value={form.name} 
+                            onChange={keyHandler}/>
+                    <Input  type='email' 
+                            name='email'
+                            placeholder="이메일 입력하세요"
+                            value={form.email} 
+                            onChange={keyHandler}/>
+                    <Input  type='password' 
+                            name='password'
+                            placeholder="패스워드 입력하세요"
+                            value={form.passwrd} 
+                            onChange={keyHandler}/>
+                    <Button type='submit'>가입하기</Button>
+                </form>
+                <TextLink to='/users/signIn'>이미회원이시면 로그인</TextLink>
+            </FormWrapper>
+        </Container>
+    )
+}
+
+export default SignUpPage ;
+

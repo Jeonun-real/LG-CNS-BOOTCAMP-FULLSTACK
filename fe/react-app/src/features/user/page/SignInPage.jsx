@@ -1,180 +1,159 @@
-import { useState } from "react";
-import styled from "styled-components";
+import React, { useState }  from 'react';
+import styled               from 'styled-components';
 import { Link, useNavigate } from "react-router-dom";
 import api from '../../../api/axios';
 
-
-const SigInPage = () => {
-
-    const moveUrl = useNavigate();
-
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-    });
-
-    const changeHandler = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({...prev, [name]: value}));
-    };
-
-
-
-    /*
-    CRUD
-    - axios: get(), post(), put() | patch(), delete();
-    QueryString(url뒤에 직접 바인딩) -> router에서도 사용가능!!
-    - api.get('url?email=xxx&password=xxxx')
-    - api.get('url',{ 
-                    params: {
-                        email: form.email,
-                        pad: form.password                               
-                    }
-    })
-    DB: SQL(Structor Query Laguage)
-    select hame, email, password
-    from table
-    where email=? and password = ?
-    */
-
-
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        console.log("로그인 정보:", formData);
-
-        await api.get(`/users?email=${formData.email}&password=${formData.password}`)
-            .then(response => {
-                console.log('response',response);
-                console.log('response',response.data);
-                if(response.status === 200){
-                    localStorage.setItem('user',response.data[0].email);
-                    moveUrl('/blogs/index');
-                    // header access token을 가져오고 싶을 수 있어야 함.
-                    // 인증, 인가 -> JWT or spring security
-                    
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
-
-
-    //     e.preventDefault();
-    //     console.log("로그인 정보:", formData);
-
-    //     const data = {...formData};
-
-    //     await api.get(`/users/email=${formData.email}&password=${formData.password}`)
-    //         .then(response => {
-    //             console.log('response',response);
-    //             if(response.status === 200){
-    //                 localStorage.setItem('user'.reponse.data[0].name)
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-        
-        
-    //     }
-
-
-    // };
-
-    return (
-        <PageContainer>
-            <FormBox onSubmit={submitHandler}>
-                <Title>로그인</Title>
-                <InputGroup>
-                <Label htmlFor="email">이메일</Label>
-                <Input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={changeHandler}
-                    placeholder="이메일을 입력하세요"
-                    required
-                />
-                </InputGroup>
-
-                <InputGroup>
-                <Label htmlFor="password">패스워드</Label>
-                <Input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={changeHandler}
-                    placeholder="패스워드를 입력하세요"
-                    required
-                />
-                </InputGroup>
-
-                <SubmitButton type="submit">로그인</SubmitButton>
-            </FormBox>
-        </PageContainer>
-    );
-};
-
-export default SigInPage;
-
-const PageContainer = styled.div`
-  min-height: 100vh;
+const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f6f8;
+  height: 100vh;
+  background-color: #f2f2f2;
 `;
 
-const FormBox = styled.form`
-  width: 400px;
-  padding: 40px;
-  border-radius: 12px;
+const FormWrapper = styled.div`
   background-color: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+  width: 400px;
 `;
 
 const Title = styled.h2`
-  margin: 0 0 30px;
   text-align: center;
-`;
-
-const InputGroup = styled.div`
-  display: flex;
-  flex-direction: column;
   margin-bottom: 20px;
-`;
-
-const Label = styled.label`
-  margin-bottom: 8px;
-  font-weight: bold;
+  color: #333;
 `;
 
 const Input = styled.input`
+  width: 100%;
   padding: 12px;
-  border: 1px solid #cccccc;
+  margin-bottom: 15px;
   border-radius: 6px;
+  border: 1px solid #ccc;
   font-size: 16px;
 
   &:focus {
     outline: none;
-    border-color: #4f7cff;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
   }
 `;
 
-const SubmitButton = styled.button`
+const Button = styled.button`
   width: 100%;
   padding: 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: #4f7cff;
+  background-color: #007bff;
   color: white;
+  border: none;
   font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+`;
+
+const TextLink = styled(Link)`
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
   cursor: pointer;
 
   &:hover {
-    background-color: #345fd1;
+    text-decoration: underline;
   }
 `;
+
+// npm install styled-components @mui/material @mui/icons-material @emotion/react @emotion/styled
+
+const SignInPage = () => {
+
+    // state 
+    const [form, setForm] = useState({
+        email : '', password : ''
+    });
+    const moveUrl = useNavigate();
+
+    // 기존값을 유지하면서 현재 입력된 필드에 대한 상태변화(업데이트)를 처리 
+    const keyHandler = (e) => {
+        const {name, value} = e.target ;
+        setForm({...form, [name]:value});
+    };
+    
+    /*
+    CRUD
+    - axios : get(), post(), put() | patch(), delete();
+    QueryString(url 뒤에 직접 바인딩) -> router에서도 사용가능 확인!!
+    - api.get('url?email=xxxx&password=xxxxx');
+    - api.get('url' , {
+        params : {
+            email : form.email,
+            password : form.password
+        }
+    })
+    DB : SQL(Structor Query Language) 
+    select  name, email, password 
+    from    table
+    where   email = ? and password = ? 
+    */
+    const signInHandler = async (e) => {
+        e.preventDefault() ;
+
+        // json-server version
+        await api.get(`/users?email=${form.email}&password=${form.password}`)
+                .then( response => {
+                    console.log(`debug >>>> axios request success` , response);  
+                    if(response.status === 200) {
+                        
+                        localStorage.setItem('user' , response.data[0].email) ;
+                        // 추후 추가작업
+                        // header access token 가져오고 싶을 수 있어야함.
+                        // 인증, 인가 -> JWT or spring security
+
+                        moveUrl('/blogs/index') ;
+                    }
+
+                })
+                .catch( error => {
+                    console.log(`debug >>>> axios request error` , error); 
+                });
+        
+        // spring version
+    }
+
+    return(
+        <Container>
+            <FormWrapper>
+                <Title>SignIn</Title>
+                <form onSubmit={signInHandler}>
+                    <Input  type='email' 
+                            name='email'
+                            placeholder="이메일 입력하세요"
+                            value={form.email}
+                            onChange={keyHandler}/>
+                    <Input  type='password' 
+                            name='password'
+                            placeholder="패스워드 입력하세요"
+                            value={form.password}
+                            onChange={keyHandler}/>
+                    <Button type='submit'>SignIn</Button>
+                </form>
+                <TextLink to='/'>회원가입</TextLink>
+            </FormWrapper>
+        </Container>
+    )
+}
+
+export default SignInPage ;
+

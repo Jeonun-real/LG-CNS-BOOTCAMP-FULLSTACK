@@ -13,18 +13,41 @@
       "id": 2
     }
   ],
-  "blogs" :[        
-        {
-            "title" : "TIL 작성" ,
-            "content":"component 작성",
-            "category" : "React",
-            "email" : "tjwjddns1302@ajou.ac.kr"
-        },
-        {
-            "title" : "JAVA작성" ,
-            "content":"component 작성",
-            "category" : "React",
-            "email" : "tjwjddns1302@gmail.com"
-        }
-    ]
+  "blogs": [
+    {
+      "title": "til작성",
+      "content": "til작성til작성til작성til작성til작성til작성til작성",
+      "category": "개발",
+      "email": "tjwjddns1302@gmail.com",
+      "id": 1
+    },
+    {
+      "title": "java작성",
+      "content": "java작성",
+      "category": "일상",
+      "email": "tjwjddns1302@gmail.com",
+      "id": 2
+    },
+    {
+      "title": "피지컬트레이닝",
+      "content": "피지컬트레이닝은 단백질",
+      "category": "취미",
+      "email": "tjwjddns1302@gmail.com",
+      "id": 3
+    }
+  ],
+  "comments": [
+    {
+      "comment": "굿",
+      "id": 1,
+      "blogId": 1,
+      "email": "tjwjddns1302@naver.ac.kr"
+    },
+    {
+      "blogId": 1,
+      "comment": "ㅁㄴㄹㅇㅁㄴㄻㄴㄻㄴㄹㅇ",
+      "email": "tjwjddns1302@gmail.com",
+      "id": 4
+    }
+  ]
 }
