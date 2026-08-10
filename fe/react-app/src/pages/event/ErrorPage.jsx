@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 // state가 아닌 queryString 으로 전달되는 형식일 경우 
 import { useSearchParams  } from "react-router-dom";
 
-
 const ErrorPage = () => {
 
     const [searchParams] = useSearchParams();
@@ -19,5 +18,4 @@ const ErrorPage = () => {
     )
 }
 
-    
-export default ErrorPage;
+export default ErrorPage ;
