@@ -1,6 +1,6 @@
 # Java build files
 *.class
-*.jar
+# *.jar
 *.war
 *.ear
 
