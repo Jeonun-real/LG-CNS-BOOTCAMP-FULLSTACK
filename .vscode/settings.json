@@ -1,0 +1,10 @@
+{
+    "java.jdt.ls.lombokSupport.enabled": true,
+    "java.project.sourcePaths": [
+        "be/inspire_java_grammer_6th/src"
+    ],
+    "java.project.outputPath": "be/inspire_java_grammer_6th/bin",
+    "java.project.referencedLibraries": [
+        "be/inspire_java_grammer_6th/lib/**/*.jar"
+    ]
+}
