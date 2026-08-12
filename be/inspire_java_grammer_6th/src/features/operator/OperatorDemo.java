@@ -50,19 +50,27 @@ public class OperatorDemo {
      */
     public String ifWoodMain(int number){
     
-       if(number>=1 && number <=3){
-            if(number==1){
-                return "거짓";
-            }else if(number==2){
-                return "거짓";
+    //    if(number>=1 && number <=3){
+    //         if(number==1){
+    //             return "거짓";
+    //         }else if(number==2){
+    //             return "거짓";
 
-            }else{
-                 return "진실";
+    //         }else{
+    //              return "진실";
 
-            }
-       } else{
-            return "왓";
-       }
+    //         }
+    //    } else{
+    //         return "왓";
+    //    }
+
+
+        return (number <1 || number>3) ? "1~3사이만 가능"
+            :(number==1)? "거짓말"
+            :(number==2)? "거짓말"
+            : "정직";
+
+            
     }
 
 
