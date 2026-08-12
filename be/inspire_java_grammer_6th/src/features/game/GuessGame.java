@@ -32,7 +32,7 @@ public class GuessGame {
             if(guess == num&&guess<100&&guess>0){
                 return "게임성공";
             }else if(guess<100&&guess>0){
-                if(num==9){
+                if(i==9){
                     break;
                 }
                 System.out.println("다시시도하세요");
