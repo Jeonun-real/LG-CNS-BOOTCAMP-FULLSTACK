@@ -24,7 +24,6 @@ public class GuessGame {
 
         int num = (int)(Math.random()*100)+1;
         System.out.println("num>>"+num);
-        String str = null;
 
         for(int i=0; i<10;i++){
             System.out.print("생각하는 숫자를 입력하세요>>>>> ");
@@ -36,7 +35,7 @@ public class GuessGame {
                 System.out.println("다시시도하세요");
             }
         }
-        return 게임실패;
+        return "게임실패";
     }
     public String gameWhile(){
         return null;
