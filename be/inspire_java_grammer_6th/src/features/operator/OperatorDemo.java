@@ -49,21 +49,20 @@ public class OperatorDemo {
     - 나무꾼이 자기의 도끼가 1번이라 하면 -> 산신령이 정직하다고 도끼  다 주겠다 함
      */
     public String ifWoodMain(int number){
-        String ans = null;
     
-        if(number == 1 ){
-            ans = "거짓말";
-            return ans;
-        }else if(number==2){
-            ans = "거짓말";
-            return ans;            
-        }else if(number==3){
-            ans = "정직";
-            return ans;               
-        }else{
-            ans = "1~3범위에서 골라라";
-            return ans;
-        }
+       if(number>=1 && number <=3){
+            if(number==1){
+                return "거짓";
+            }else if(number==2){
+                return "거짓";
+
+            }else{
+                 return "진실";
+
+            }
+       } else{
+            return "왓";
+       }
     }
 
 
