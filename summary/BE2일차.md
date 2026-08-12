@@ -83,3 +83,22 @@ String = public final class String
 str01 == str02
 주소값비교
 
+literal pool
+key : value
+
+        String str01 ="lgcns";
+        String str02 = "lgcns";
+        이건 동일하게 나옴
+
+        lieral pool에 str01이 들어오면서 key값 획득
+        str02가 들어갈시 lireal pool에서 그냥 기존 key 값을 복사에서 반환
+        즉 키값의 서로 비교가 되게 되고 동일하게 나옴
+
+        
+        String str01 = new String("lgcns");
+        String str02 = new String("lgcns");
+        이건 다르게 나옴
+        인스턴스의 초기값으로 str01이 들어가고
+        다른 인스턴스의 초기값으로 str02가 들어감
+        당연히 2개가 다른 인스턴시 생성된 주소번지가 저장
+
