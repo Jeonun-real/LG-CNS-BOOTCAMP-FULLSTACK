@@ -194,8 +194,9 @@ public class OperatorDemo {
                 inner:
                 for(int col=1;col<=9;col++){
                     System.out.printf("%d*%d=%d\t", row, col, row*col);
-                    if(row==5)
+                    if (col==5){
                         continue;
+                    }
                 }
                 System.out.println();
 
