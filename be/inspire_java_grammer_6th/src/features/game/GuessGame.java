@@ -21,12 +21,22 @@ public class GuessGame {
 
 
     public String gameFor(){
-        System.out.print("생각하는 숫자를 입력하세요>>>>> ");
-        Scanner scan = new Scanner(System.in);
-        int guess = scan.nextInt();
-        System.out.println("guess>>"+guess);
 
-        return null;
+        int num = (int)(Math.random()*100)+1;
+        System.out.println("num>>"+num);
+        String str = null;
+
+        for(int i=0; i<10;i++){
+            System.out.print("생각하는 숫자를 입력하세요>>>>> ");
+            Scanner scan = new Scanner(System.in);
+            int guess = scan.nextInt();
+            if(guess == num){
+                return "게임성공";
+            }else{
+                System.out.println("다시시도하세요");
+            }
+        }
+        return 게임실패;
     }
     public String gameWhile(){
         return null;
