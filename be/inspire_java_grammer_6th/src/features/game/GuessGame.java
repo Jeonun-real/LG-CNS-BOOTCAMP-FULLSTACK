@@ -32,8 +32,8 @@ public class GuessGame {
             if(guess == num&&guess<100&&guess>0){
                 return "게임성공";
             }else if(guess<100&&guess>0){
-                if(num==10){
-                    break;
+                if(num==9){
+                    return "게임실패";
                 }
                 System.out.println("다시시도하세요");
 
