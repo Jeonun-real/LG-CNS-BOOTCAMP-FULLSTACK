@@ -9,7 +9,7 @@ public class OperatorApp {
         
         BlogResponseDTO reponse = instance.register("오늘도 화이팅", "앗", "tjwjdns1302@gmail.com");
 
-        System.out.println(reponse);
+        System.out.println(reponse.getStatus());
         
 
     }

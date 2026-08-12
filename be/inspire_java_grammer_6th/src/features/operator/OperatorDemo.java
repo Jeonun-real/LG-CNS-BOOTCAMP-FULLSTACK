@@ -32,9 +32,14 @@ public class OperatorDemo {
 
     }
     
-    // public BlogResponseDTO register(BlogRequestDTO request){
+    public BlogResponseDTO register(BlogRequestDTO request){
 
-    // }
+        if(request.getEmail() == "tjwjddns1302@gmail.com"){
+            return new BlogResponseDTO(201, "OK");
+        } else{
+            return new BlogResponseDTO(400, "FAIL");
+        }
+    }
 
 
 
