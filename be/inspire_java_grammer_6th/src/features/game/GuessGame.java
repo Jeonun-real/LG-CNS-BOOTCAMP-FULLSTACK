@@ -62,6 +62,7 @@ public class GuessGame {
             }else{
                 System.out.println("1~100사이에 수 입력다시");
             }
+            i++;
         }
         return "게임실패";
     
