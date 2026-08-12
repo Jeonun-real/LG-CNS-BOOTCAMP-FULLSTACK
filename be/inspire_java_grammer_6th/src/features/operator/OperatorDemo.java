@@ -192,7 +192,7 @@ public class OperatorDemo {
         public void gugudan(){
             for(int row=2;row<=9;row++){
                 for(int col=1;col<=9;col++){
-                    System.out.printf("%d*%d=%d\t", row, col, row*col);
+                    System.out.printf("%d*%d=%d\t", row, col, col*row);
                     if(row==5)
                         continue;
                 }
