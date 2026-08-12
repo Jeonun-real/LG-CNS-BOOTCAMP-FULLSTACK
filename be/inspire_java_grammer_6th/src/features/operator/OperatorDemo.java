@@ -156,11 +156,21 @@ public class OperatorDemo {
             // }
 
             //while 초기식, 조건식, 증감식
-            int i = 1 ;
-            while(i<=num){
+            // int i = 1 ;
+            // while(i<=num){
+            //     result +=i;
+            //     i++;
+            // }
+
+            // return result;
+
+            //do ~ while()
+            int i = 1;
+            do{
                 result +=i;
                 i++;
-            }
+
+            }while(i<=num);
 
             return result;
         }
