@@ -124,3 +124,5 @@ key : value
             System.out.println(str.charAt(0));
 이런식으로 글짜 1개씩 꺼내기 가능
 character 1개를 
+str.length()-1 인데스는 0부터 시작이라
+

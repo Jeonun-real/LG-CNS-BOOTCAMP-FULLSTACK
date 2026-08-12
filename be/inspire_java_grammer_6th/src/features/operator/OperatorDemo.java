@@ -204,8 +204,7 @@ public class OperatorDemo {
         public void popstr(String str){
             System.out.println("params: "+str);
             System.out.println("length: "+str.length());
-            System.out.println(str.charAt(1));
-            for(int idx = str.length()-1 ; idx>0;idx--){
+            for(int idx = str.length()-1 ; idx>=0;idx--){
                 System.out.print(str.charAt(idx));
             }
             System.out.println();
