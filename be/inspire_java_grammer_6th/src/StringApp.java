@@ -6,6 +6,9 @@ public class StringApp {
         String str01 = new String("lgcns");
         String str02 = new String("lgcns");
 
+        console.log(str01);
+        console.log(str02);
+
         if(str01==str02){
             System.out.println("str01==str02");
         }else{
