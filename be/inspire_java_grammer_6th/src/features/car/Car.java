@@ -15,6 +15,10 @@ public class Car {
     - 매개변수로 전달된 값을 멤버변수에 초기화
     - this는 인스턴스 생성 전 인스턴스를 지칭하는 키워드
     */
+    public Car(String brand){
+        this.brand = brand;
+    }
+
     public Car(String brand, String model){
         this.brand = brand;
         this.model = model;
