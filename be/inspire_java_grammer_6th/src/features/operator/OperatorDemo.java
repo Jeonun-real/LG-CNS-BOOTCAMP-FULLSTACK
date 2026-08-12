@@ -24,9 +24,9 @@ public class OperatorDemo {
         System.out.println("전달된 매개변수를 가지고 업무로직을 처리");
 
         if(email == "tjwjddns1302@gmail.com"){
-            return new BlogResponseDTO(201, "OK")
+            return new BlogResponseDTO(201, "OK");
         } else{
-            return new BlogResponseDTO(400, "FAIL")
+            return new BlogResponseDTO(400, "FAIL");
         }
 
 
