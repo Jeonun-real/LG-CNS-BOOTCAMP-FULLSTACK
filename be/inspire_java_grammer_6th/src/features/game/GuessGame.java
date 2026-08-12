@@ -34,7 +34,7 @@ public class GuessGame {
             }else if(num<100&&num>0){
                 System.out.println("다시시도하세요");
             }else{
-                System.out.println("1~100사이에 수 입력다시");
+                System.out.println("1~100사이에 수 입력ㄴㅁㄻㄴㄹ다시");
             }
         }
         return "게임실패";
