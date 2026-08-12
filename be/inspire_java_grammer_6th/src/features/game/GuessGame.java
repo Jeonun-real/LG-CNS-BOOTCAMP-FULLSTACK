@@ -32,7 +32,10 @@ public class GuessGame {
             if(guess == num&&guess<100&&guess>0){
                 return "게임성공";
             }else if(guess<100&&guess>0){
-                System.out.println("다시시도하세요");
+                if(num==10){
+                    System.out.println("다시시도하세요");
+                }
+                
             }else{
                 System.out.println("1~100사이에 수 입력다시");
             }
