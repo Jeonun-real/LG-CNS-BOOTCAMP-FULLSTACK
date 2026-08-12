@@ -21,7 +21,9 @@ public class OperatorApp {
         // System.out.println(res.getMessage());
         // System.out.println();
 
-        String result = instance.ifWoodMain(2);
+        // String result = instance.ifWoodMain(2);
+        
+        int result = instance.sumNumber(1,100);
         System.out.println(result);
     }
 }

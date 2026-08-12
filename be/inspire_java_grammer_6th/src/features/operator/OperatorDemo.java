@@ -48,7 +48,7 @@ public class OperatorDemo {
     - 나무꾼이 자기의 도끼가 1번이라 하면 -> 산신령이 거짓말이라고 함
     - 나무꾼이 자기의 도끼가 1번이라 하면 -> 산신령이 정직하다고 도끼  다 주겠다 함
      */
-    public String ifWoodMain(int number){
+    // public String ifWoodMain(int number){
     
     //    if(number>=1 && number <=3){
     //         if(number==1){
@@ -65,39 +65,60 @@ public class OperatorDemo {
     //    }
 
 
-        // return (number <1 || number>3) ? "1~3사이만 가능"
-        //     :(number==1)? "거짓말"
-        //     :(number==2)? "거짓말"
-        //     : "정직";
+    //     return (number <1 || number>3) ? "1~3사이만 가능"
+    //         :(number==1)? "거짓말"
+    //         :(number==2)? "거짓말"
+    //         : "정직";
 
-        // switch (number) {
-        //     case 1:
-        //         return "거짓";
-        //     case 2:
-        //         return "거짓";
-        //     case 3:
-        //         return "진실";           
-        //     default:
-        //         return "미침";
-        // }
+    //     switch (number) {
+    //         case 1:
+    //             return "거짓";
+    //         case 2:
+    //             return "거짓";
+    //         case 3:
+    //             return "진실";           
+    //         default:
+    //             return "미침";
+    //     }
 
-        // return switch (number) {
-        //     case 1 -> "거짓";
-        //     case 2 -> "거짓";
-        //     case 3 -> "진실";
-        //     default -> "거짓";
-        // };
-        String result = null;
-        switch (number) {
-            case 1 -> result = "거짓";
-            case 2 -> result ="거짓";
-            case 3 -> result ="진실";
-            default -> result ="거짓";
-        };
-        return result;
-
-    }
+    //     return switch (number) {
+    //         case 1 -> "거짓";
+    //         case 2 -> "거짓";
+    //         case 3 -> "진실";
+    //         default -> "거짓";
+    //     };
+    //     String result = null;
+    //     switch (number) {
+    //         case 1 -> result = "거짓";
+    //         case 2 -> result ="거짓";
+    //         case 3 -> result ="진실";
+    //         default -> result ="거짓";
+    //     };
+    //     return result;
 
 
+    // }
+
+        /*
+        반복구문(for, while, do~while)
+        - [], collection API(List, Set, Map), 
+        - var 8 ~ Stream API(forEach ~) : lambda expression
+        - 함수형 인터페이스(supplier, Consumer, Fuction, Prediction) 
+        - 요소의 타입으로 기본타입보다 참조타입을 활용하는 방법
+        - continue, break : 반복도중 종료, 계속진행 
+       for(초기식;조건식;증감식){
+       
+       }
+        */
+
+
+        //상한과 하한의 총합
+        public int sumNumber(int a, int b){
+            int result = 0;
+            for(int i = a ; i<b;i++){
+                result += i;
+            }
+            return result ;
+        }
 
 }
