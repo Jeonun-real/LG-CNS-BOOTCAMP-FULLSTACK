@@ -65,12 +65,21 @@ public class OperatorDemo {
     //    }
 
 
-        return (number <1 || number>3) ? "1~3사이만 가능"
-            :(number==1)? "거짓말"
-            :(number==2)? "거짓말"
-            : "정직";
+        // return (number <1 || number>3) ? "1~3사이만 가능"
+        //     :(number==1)? "거짓말"
+        //     :(number==2)? "거짓말"
+        //     : "정직";
+        switch (number) {
+            case 1:
+                return "거짓";
+            case 2:
+                return "거짓";
+            case 3:
+                return "진실";           
+            default:
+                return "미침";
+        }
 
-            
     }
 
 
