@@ -70,3 +70,5 @@ classmethod
 java -> math ()
 static으로 선언
 인스턴스 생성안하고 그냥 가져다 쓰면 됨
+
+반복이 중첩되었으때 break 쓰면 가장 가까운 블록 탈출

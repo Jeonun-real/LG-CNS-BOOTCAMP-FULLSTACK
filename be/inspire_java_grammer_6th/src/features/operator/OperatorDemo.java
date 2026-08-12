@@ -195,9 +195,9 @@ public class OperatorDemo {
                     System.out.printf("%d*%d=%d\t", row, col, row*col);
                 }
                 System.out.println();
-                if(row == 5){
-                    break;
-                }
+                // if(row == 5){
+                //     break;
+                // }
             }
         }
 
