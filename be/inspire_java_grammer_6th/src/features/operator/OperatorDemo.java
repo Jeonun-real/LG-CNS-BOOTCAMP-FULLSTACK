@@ -69,16 +69,32 @@ public class OperatorDemo {
         //     :(number==1)? "거짓말"
         //     :(number==2)? "거짓말"
         //     : "정직";
+
+        // switch (number) {
+        //     case 1:
+        //         return "거짓";
+        //     case 2:
+        //         return "거짓";
+        //     case 3:
+        //         return "진실";           
+        //     default:
+        //         return "미침";
+        // }
+
+        // return switch (number) {
+        //     case 1 -> "거짓";
+        //     case 2 -> "거짓";
+        //     case 3 -> "진실";
+        //     default -> "거짓";
+        // };
+        String result = null;
         switch (number) {
-            case 1:
-                return "거짓";
-            case 2:
-                return "거짓";
-            case 3:
-                return "진실";           
-            default:
-                return "미침";
-        }
+            case 1 -> result = "거짓";
+            case 2 -> result ="거짓";
+            case 3 -> result ="진실";
+            default -> result ="거짓";
+        };
+        return result;
 
     }
 

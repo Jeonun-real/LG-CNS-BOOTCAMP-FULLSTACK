@@ -21,7 +21,7 @@ public class OperatorApp {
         // System.out.println(res.getMessage());
         // System.out.println();
 
-        String result = instance.ifWoodMain(3);
+        String result = instance.ifWoodMain(2);
         System.out.println(result);
     }
 }
