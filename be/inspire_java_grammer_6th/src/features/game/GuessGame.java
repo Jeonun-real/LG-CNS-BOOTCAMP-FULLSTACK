@@ -75,6 +75,7 @@ public class GuessGame {
     public String gameDoWhile(){
         int num = (int)(Math.random()*100)+1;
         int i = 0;
+        System.out.println(num);
         do{
             System.out.print("생각하는 숫자를 입력하세요>>>>> ");
             Scanner scan = new Scanner(System.in);
