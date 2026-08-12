@@ -6,4 +6,19 @@ class <- class
 
 App 는 start, end point를 가짐
 
-z
+[{}, {}, {}] array => collection
+json의 객체 하나가 DTO
+사용자로 부터 보내는 요청정보 request
+값을 담아서 사용자로부터 보내는 정보 response
+
+
+source action으로 constructore로 바로 생성자 생성가능
+
+
+public BlogResponseDTO register(BlogRequestDTO request)
+반환값은 주소값을 가지는 객체도 가능
+매개변수도 객체형태로 받기 가능
+
+사용자가 요청정보를 props로 묶어서 보내면 
+
+instance -> method 에서 instance 생성 -> instance가 반환
