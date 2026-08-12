@@ -72,7 +72,7 @@ public class GuessGame {
     }
 
 
-    public String gmaeDoWhile(){
+    public String gameDoWhile(){
         int num = (int)(Math.random()*100)+1;
         int i = 0;
         do{
@@ -91,6 +91,8 @@ public class GuessGame {
             }
             i++;
         }while(i<10);
+        return "게임실패";
+
     }
 
 }

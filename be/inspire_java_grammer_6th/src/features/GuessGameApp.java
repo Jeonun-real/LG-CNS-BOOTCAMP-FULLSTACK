@@ -9,7 +9,7 @@ public class GuessGameApp {
         GuessGame game = new GuessGame();
         // String result = game.gameFor();
         // String result = game.gameWhile();
-        String result = game.gmaeDoWhile();
+        String result = game.gameDoWhile();
         System.out.println(result);
 
         
