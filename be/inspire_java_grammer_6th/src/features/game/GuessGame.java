@@ -29,12 +29,12 @@ public class GuessGame {
             System.out.print("생각하는 숫자를 입력하세요>>>>> ");
             Scanner scan = new Scanner(System.in);
             int guess = scan.nextInt();
-            if(guess == num&&num<100&&num>0){
+            if(guess == num&&guess<100&&guess>0){
                 return "게임성공";
-            }else if(num<100&&num>0){
+            }else if(guess<100&&guess>0){
                 System.out.println("다시시도하세요");
             }else{
-                System.out.println("1~100사이에 수 입력ㄴㅁㄻㄴㄹ다시");
+                System.out.println("1~100사이에 수 입력다시");
             }
         }
         return "게임실패";
