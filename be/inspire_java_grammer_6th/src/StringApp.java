@@ -10,7 +10,7 @@ public class StringApp {
         System.out.println(str02);
 
 
-        
+
         if(str01==str02){
             System.out.println("str01==str02");
         }else{
@@ -29,6 +29,8 @@ public class StringApp {
         sb=sb.append("!!");
         sb=sb.append("!!");
         String s = sb.toString();
+
+        System.out.println(s);
 
     }
 }
