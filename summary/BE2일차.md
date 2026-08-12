@@ -120,4 +120,6 @@ key : value
 
         이런식으로 많있씀
         buffer 싹 추가하고 최종적으로 문자열로 만들어내면 된다
-        
+
+            System.out.println(str.charAt(0));
+이런식으로 글짜 1개씩 꺼내기 가능
