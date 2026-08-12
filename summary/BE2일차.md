@@ -22,6 +22,8 @@ public BlogResponseDTO register(BlogRequestDTO request)
 사용자가 요청정보를 props로 묶어서 보내면 
 
 instance -> method 에서 instance 생성 -> instance가 반환
+각 인스턴스별로 연결로직 이해
+
 
 하나의 클래스에 같은 타입을 같은 methon 호출 가능?
 가능 -> 메서드 오버로딩 
