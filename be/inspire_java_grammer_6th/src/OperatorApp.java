@@ -26,7 +26,9 @@ public class OperatorApp {
         // int result = instance.sumNumber(1,100);
         // System.out.println(result);
 
-        int result = OperatorDemo.sumRandom(); //static이라 class 이름으로 호출
-        System.out.println(result);
+        // int result = OperatorDemo.sumRandom(); //static이라 class 이름으로 호출
+        // System.out.println(result);
+
+        instance.printGugudan(2);
     }
 }

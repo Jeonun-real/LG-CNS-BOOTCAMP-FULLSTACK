@@ -173,6 +173,19 @@ public class OperatorDemo {
             }while(i<=num);
 
             return result;
+
+            /*
+            format : %d %s %f
+            - argument : int
+            - return type: void
+            - method name: printGugudan
+            */
+        }
+
+        public void printGugudan(int dan){
+            for(int idx = 1 ; idx<=9 ; idx ++){
+                System.out.printf("%d*%d=%d\t", dan, idx, (dan*idx));
+            }
         }
 
 
