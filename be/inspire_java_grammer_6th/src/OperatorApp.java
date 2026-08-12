@@ -30,5 +30,7 @@ public class OperatorApp {
         // System.out.println(result);
 
         instance.gugudan();
+
+        instance.popstr("inspire lgcns camp 6th");
     }
 }
