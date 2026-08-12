@@ -8,7 +8,7 @@ public class OperatorApp {
         // instance.operator();
         // System.out.println(instance);
         
-        BlogResponseDTO reponse = instance.register("오늘도 화이팅", "앗", "tjwjdns1302@gmail.com");
+        BlogResponseDTO reponse = instance.register("오늘도 화이팅", "앗", "tjwjddns1302@gmail.com");
 
         System.out.println(reponse.getStatus());
         System.out.println(reponse.getMessage());
