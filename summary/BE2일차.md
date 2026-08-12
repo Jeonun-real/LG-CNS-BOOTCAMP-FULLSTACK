@@ -58,3 +58,11 @@ main 메서드가 static 영역에 올라간 이후 인스턴스를 생성하면
 class 안에 class 정의 가능
 
 상수는 반드시 대명사. 선언과 동시에 초기화
+상수는 수정 불가능
+
+static으로 언
+
+static
+staticmessagee      -> new xx();
+pi                      message
+classmethod             

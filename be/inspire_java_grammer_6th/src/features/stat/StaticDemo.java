@@ -18,11 +18,22 @@ public class StaticDemo {
     }
 
     public void nonStaticMethod(){
+        System.out.println(message);
+        System.out.println(staticMessage);
+        System.out.println(PI);
 
     }
 
     public static void classMethod(){
+        //error
+        //static 소유는 instance 소유(변수, 메서드)에 접근불가
+        //반드시 인스턴스 만들고 접근할 것ㄱ
+        // System.out.println(message);
+        // System.out.println(new StaticDemo().message);
 
+
+        System.out.println(staticMessage);
+        System.out.println(PI);
     }
 
 }
