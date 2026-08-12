@@ -41,6 +41,28 @@ public class OperatorDemo {
         }
     }
 
+    /* q) 
+    매개변수 number 값의 범위 1~3
+    1, 금 2. 은 3. 쇠
+    - 나무꾼이 자기의 도끼가 1번이라 하면 -> 산신령이 거짓말이라고 함
+    - 나무꾼이 자기의 도끼가 1번이라 하면 -> 산신령이 거짓말이라고 함
+    - 나무꾼이 자기의 도끼가 1번이라 하면 -> 산신령이 정직하다고 도끼  다 주겠다 함
+     */
+    public String ifWoodMain(int number){
+        String ans = null;
+    
+        if(number == 1 ){
+            ans = "거짓말";
+            return ans;
+        }else if(number==2){
+            ans = "거짓말";
+            return ans;            
+        }else{
+            ans = "정직";
+            return ans;               
+        }
+    }
+
 
 
 }
