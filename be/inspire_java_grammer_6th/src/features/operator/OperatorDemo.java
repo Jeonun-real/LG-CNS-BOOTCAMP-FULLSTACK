@@ -195,8 +195,8 @@ public class OperatorDemo {
 
                 for(int col=1;col<=9;col++){
                     System.out.printf("col=%d\t", col);
-
                 }
+                System.out.println();
             }
         }
 
