@@ -188,9 +188,10 @@ public class OperatorDemo {
             }
         }
 
-
         public void gugudan(){
+            outer:
             for(int row=2;row<=9;row++){
+                inner:
                 for(int col=1;col<=9;col++){
                     System.out.printf("%d*%d=%d\t", row, col, row*col);
                     if(row==5)
