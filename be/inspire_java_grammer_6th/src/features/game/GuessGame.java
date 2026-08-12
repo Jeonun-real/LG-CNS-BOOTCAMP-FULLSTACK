@@ -43,6 +43,8 @@ public class GuessGame {
         }
         return "게임실패";
     }
+
+
     public String gameWhile(){
 
         int num = (int)(Math.random()*100)+1;
@@ -71,7 +73,24 @@ public class GuessGame {
 
 
     public String gmaeDoWhile(){
-        return null;
+        int num = (int)(Math.random()*100)+1;
+        int i = 0;
+        do{
+            System.out.print("생각하는 숫자를 입력하세요>>>>> ");
+            Scanner scan = new Scanner(System.in);
+            int guess = scan.nextInt();
+            if(guess == num&&guess<100&&guess>0){
+                return "게임성공";
+            }else if(guess<100&&guess>0){
+                if(i==9){
+                    break;
+                }
+                System.out.println("다시시도하세요");
+            }else{
+                System.out.println("1~100사이에 수 입력다시");
+            }
+            i++;
+        }while(i<10);
     }
 
 }

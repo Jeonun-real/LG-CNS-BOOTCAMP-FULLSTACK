@@ -8,8 +8,8 @@ public class GuessGameApp {
     public static void main(String[] args) {
         GuessGame game = new GuessGame();
         // String result = game.gameFor();
-        String result = game.gameWhile();
-
+        // String result = game.gameWhile();
+        String result = game.gmaeDoWhile();
         System.out.println(result);
 
         
@@ -17,7 +17,7 @@ public class GuessGameApp {
         // Scanner scan = new Scanner(System.in);
         // System.out.println("생각하는 숫자를 입력하세요>>>>> ");
         // int guess = scan.nextInt();
-        // System.out.println("guess>>"+guess);
+        // System.out.println("guess>>"+guess);1
 
 
     }
