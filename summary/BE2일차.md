@@ -127,3 +127,5 @@ character 1개를
 str.length()-1 인데스는 0부터 시작이라
 
 scanner객체
+        Scanner scan = new Scanner(System.in);
+        int guess = scan.nextInt();
