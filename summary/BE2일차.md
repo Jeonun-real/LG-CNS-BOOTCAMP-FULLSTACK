@@ -74,4 +74,12 @@ static으로 선언
 반복이 중첩되었으때 break 쓰면 가장 가까운 블록 탈출
 
 네스팅된 되서 빠져나갈때
-중첩반복일 경우 label을 만들고 label 까지 빠져나갈수 있다
+중첩반복일 경우 label을 만들고 continue를 통해ㅔ label 까지 빠져나갈수 있다
+
+
+String = public final class String
+객체생성 없이 기본타입 생성가능
+
+str01 == str02
+주소값비교
+
