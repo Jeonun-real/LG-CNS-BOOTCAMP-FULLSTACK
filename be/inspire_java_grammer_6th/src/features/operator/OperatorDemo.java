@@ -131,8 +131,27 @@ public class OperatorDemo {
         /*
         ? static
         - 1 ~ 100사이의 난수 발생
+`       Math 클래스가 가진 난수 호출
+
+        casting
+        int num = (int)(Math.random()*100)+1
+
+        1 ~ 해당 난수까지의 누적합을 계산
+        - static
+        - argument x
+        - return type: int
+        - method name: sumRandom
         */
 
+        public static int sumRandom(){
+            int result = 0;
+
+            // logic
+            int num = (int)(Math.random()*100)+1;
+            System.out.println(num);
+
+            return 0;
+        }
 
 
 }

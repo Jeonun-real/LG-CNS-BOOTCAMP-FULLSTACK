@@ -66,3 +66,7 @@ static
 staticmessagee      -> new xx();
 pi                      message
 classmethod             
+
+java -> math ()
+static으로 선언
+인스턴스 생성안하고 그냥 가져다 쓰면 됨
