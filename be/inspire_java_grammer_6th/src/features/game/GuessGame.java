@@ -18,13 +18,14 @@ public class GuessGame {
 
     }
 
-    System.out.println("생각하는 숫자를 입력하세요>>>>> ");
-    Scanner scan = new Scanner(System.in);
-    int guess = scan.nextInt();
-    System.out.println("guess>>"+guess);
 
 
     public String gameFor(){
+        System.out.print("생각하는 숫자를 입력하세요>>>>> ");
+        Scanner scan = new Scanner(System.in);
+        int guess = scan.nextInt();
+        System.out.println("guess>>"+guess);
+
         return null;
     }
     public String gameWhile(){
