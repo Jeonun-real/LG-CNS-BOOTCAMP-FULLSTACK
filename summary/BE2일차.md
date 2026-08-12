@@ -123,3 +123,4 @@ key : value
 
             System.out.println(str.charAt(0));
 이런식으로 글짜 1개씩 꺼내기 가능
+character 1개를 
