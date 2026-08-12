@@ -115,7 +115,7 @@ public class OperatorDemo {
         //상한과 하한의 총합
         public int sumNumber(int a, int b){
             int result = 0;
-            for(int i = a ; i<b;i++){
+            for(int i = a ; i<=b;i++){
                 result += i;
             }
             return result ;
