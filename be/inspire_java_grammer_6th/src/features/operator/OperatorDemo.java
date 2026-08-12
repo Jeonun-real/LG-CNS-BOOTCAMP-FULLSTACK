@@ -116,6 +116,7 @@ public class OperatorDemo {
         public int sumNumber(int start, int end){
             int result = 0;
             int temp = 0;
+            //start, end 바꾸기
             if(start>end){
                 temp = start;
                  start= end;
@@ -126,5 +127,12 @@ public class OperatorDemo {
             }
             return result ;
         }
+
+        /*
+        ? static
+        - 1 ~ 100사이의 난수 발생
+        */
+
+
 
 }
