@@ -57,9 +57,12 @@ public class OperatorDemo {
         }else if(number==2){
             ans = "거짓말";
             return ans;            
-        }else{
+        }else if(number==3){
             ans = "정직";
             return ans;               
+        }else{
+            ans = "1~3범위에서 골라라";
+            return ans;
         }
     }
 
