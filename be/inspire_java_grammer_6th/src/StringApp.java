@@ -17,5 +17,13 @@ public class StringApp {
         }else{
             System.out.println("str01!=str02");
         }
+
+        StringBuffer sb = new StringBuffer(str01);
+        sb=sb.append("!!");
+        sb=sb.append("!!");
+        sb=sb.append("!!");
+        sb=sb.append("!!");
+        String s = sb.toString();
+
     }
 }

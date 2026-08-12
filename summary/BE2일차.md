@@ -104,3 +104,20 @@ key : value
         그러니 당연히 다름
         그래서 str01.equals(str02) 그때는 이렇게 필드 값 비교
 
+        String str = jslim이고
+
+        str = str +"!!" 을 할경우 아에 다른 공간에 새로운 문자열 공간이 생김
+        메모리 비효율
+        그래서 StringBuffer, builder를 사용하여 같은 버퍼공간에서 문자열을 수정하도록 해주는거
+        대부분은 멀티스레드라 StringBuffer 추천
+
+        StringBuffer sb = new StringBuffer(str01);
+        sb=sb.append("!!");
+        sb=sb.append("!!");
+        sb=sb.append("!!");
+        sb=sb.append("!!");
+        String s = sb.toString();
+
+        이런식으로 많있씀
+        buffer 싹 추가하고 최종적으로 문자열로 만들어내면 된다
+        

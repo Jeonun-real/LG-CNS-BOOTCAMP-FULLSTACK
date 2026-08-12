@@ -200,6 +200,12 @@ public class OperatorDemo {
             }
         }
 
+        //문자열 반복
+        public void popstr(String str){
+            System.out.println("params: "+str);
+            System.out.println("length: "+str.length());
+        }
+
 
 
 

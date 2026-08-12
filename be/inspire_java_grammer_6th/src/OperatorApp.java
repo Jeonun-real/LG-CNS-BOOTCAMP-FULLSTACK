@@ -29,7 +29,7 @@ public class OperatorApp {
         // int result = OperatorDemo.sumRandom(); //static이라 class 이름으로 호출
         // System.out.println(result);
 
-        instance.gugudan();
+        // instance.gugudan();
 
         instance.popstr("inspire lgcns camp 6th");
     }
