@@ -2,8 +2,9 @@ import features.operator.OperatorDemo;
 
 public class OperatorApp {
     public static void main(String[] args) {
-        OperatorDemo demo = new OperatorDemo();
-        demo.operator();
+        OperatorDemo instance = new OperatorDemo();
+        instance.operator();
+        System.out.println(instance);
         
         
         
