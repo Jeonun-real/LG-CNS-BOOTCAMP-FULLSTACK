@@ -113,20 +113,20 @@ public class OperatorDemo {
 
 
         //하한값의 경게와 상한값의 경계를 포함하는 총합을 반환하고 싶다면?
-        public int sumNumber(int start, int end){
-            int result = 0;
-            int temp = 0;
-            //start, end 바꾸기
-            if(start>end){
-                temp = start;
-                 start= end;
-                 end = temp;
-            }
-            for(int i = start ; i<=end;i++){
-                result += i;
-            }
-            return result ;
-        }
+        // public int sumNumber(int start, int end){
+        //     int result = 0;
+        //     int temp = 0;
+        //     //start, end 바꾸기
+        //     if(start>end){
+        //         temp = start;
+        //          start= end;
+        //          end = temp;
+        //     }
+        //     for(int i = start ; i<=end;i++){
+        //         result += i;
+        //     }
+        //     return result ;
+        // }
 
         /*
         ? static
@@ -148,9 +148,21 @@ public class OperatorDemo {
 
             // logic
             int num = (int)(Math.random()*100)+1;
-            System.out.println(num);
+            System.out.println("generate nan=" + num);
 
-            return 0;
+            //for
+            // for(int i = 1 ; i<=num; i++){
+            //     result +=i;
+            // }
+
+            //while 초기식, 조건식, 증감식
+            int i = 1 ;
+            while(i<=num){
+                result +=i;
+                i++;
+            }
+
+            return result;
         }
 
 
