@@ -112,10 +112,16 @@ public class OperatorDemo {
         */
 
 
-        //상한과 하한의 총합
-        public int sumNumber(int a, int b){
+        //하한값의 경게와 상한값의 경계를 포함하는 총합을 반환하고 싶다면?
+        public int sumNumber(int start, int end){
             int result = 0;
-            for(int i = a ; i<=b;i++){
+            int temp = 0;
+            if(start>end){
+                temp = start;
+                 start= end;
+                 end = temp;
+            }
+            for(int i = start ; i<=end;i++){
                 result += i;
             }
             return result ;
