@@ -14,34 +14,41 @@ Q) 숫자를 맞추는 게임
     - 실패) 10번의 기회를 전부 소진했습니다
 */
 public class GuessGame {
+
+    private int num;
     public GuessGame(){
+        num = (int)(Math.random()*100)+1;
+        System.out.println("num>>"+num);
 
     }
 
 
 
     public String gameFor(){
+        String result = null;
+        int cnt = 0;
+        boolean isFlag = false;
 
-        int num = (int)(Math.random()*100)+1;
-        System.out.println("num>>"+num);
+        Scanner scan = new Scanner(System.in);
 
         for(int i=0; i<10;i++){
+            cnt  =  i +1;
             System.out.print("생각하는 숫자를 입력하세요>>>>> ");
-            Scanner scan = new Scanner(System.in);
             int guess = scan.nextInt();
-            if(guess == num&&guess<100&&guess>0){
-                return "게임성공";
-            }else if(guess<100&&guess>0){
-                if(i==9){
-                    break;
-                }
-                System.out.println("다시시도하세요");
+            if(num>guess){
+                System.out.println("UP");
+
+
+            }else if(num<guess){
+                System.out.println("DOWN");
 
             }else{
-                System.out.println("1~100사이에 수 입력다시");
+                isFlag = true;
+                break;
             }
         }
-        return "게임실패";
+        result = (isFlag) ? cnt+"번만에 정답을 맞췄습니다" : "10번의 기회를 전부 소진했습니다";
+        return result;
     }
 
 

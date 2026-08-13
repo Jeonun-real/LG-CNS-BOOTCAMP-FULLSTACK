@@ -7,9 +7,9 @@ import features.game.GuessGame;
 public class GuessGameApp {
     public static void main(String[] args) {
         GuessGame game = new GuessGame();
-        // String result = game.gameFor();
+        String result = game.gameFor();
         // String result = game.gameWhile();
-        String result = game.gameDoWhile();
+        // String result = game.gameDoWhile();
         System.out.println(result);
 
         
