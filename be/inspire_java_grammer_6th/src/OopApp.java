@@ -1,7 +1,9 @@
+import features.oop.service.OopService;
 import features.oop.sub.ManagerDTO;
 import features.oop.sub.StudentDTO;
 import features.oop.sub.TeacherDTO;
 import features.oop.sup.PersonDTO;
+import features.oop.util.Flag;
 
 public class OopApp {
     public static void main(String[] args) {
@@ -71,6 +73,40 @@ public class OopApp {
             
 
         }
+
+        System.out.println();
+        System.out.println();
+        System.out.println("매개변수의 다양성");
+        System.out.println();
+
+        OopService service = new OopService();
+        // service.setAry(stu);
+        // service.setAry(tea);
+        // service.setAry(manager);        
+
+        service.makePerson(Flag.STUDENT, "서", 27, "SEOUL", "2026");
+        service.makePerson(Flag.TEACHER, "정", 26, "SEOUL", "JAVA");
+        service.makePerson(Flag.MANAGER, "정", 25, "SEOUL", "교육팀");
+
+        PersonDTO[] result = service.getAry();
+        for(PersonDTO person : result){
+            if(person==null){
+                break;
+            }
+            System.out.println(person.PerosnInfo());
+        }
+
+        System.out.println();
+        System.err.println(">>>>>findperson");
+        PersonDTO find = service.findPerson("서");
+        if(find != null){
+            System.out.println(find.PerosnInfo());
+        }else{
+            System.out.println(">>>>not found");
+        }
+
+
+
     }
 }
 
