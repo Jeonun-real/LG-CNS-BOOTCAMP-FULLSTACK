@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true)
 
 public class TeacherDTO extends PersonDTO{
     private String subject;
