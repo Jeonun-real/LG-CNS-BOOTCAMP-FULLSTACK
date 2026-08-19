@@ -7,8 +7,13 @@ import lombok.*;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
 public class BlogResponseDTO {
     private int status;
     private String message;
+    ///////////////////////////////////////
+    private Integer blogId;
+    private String title, content, email;
+    private Integer viewCnt;
     
 }
