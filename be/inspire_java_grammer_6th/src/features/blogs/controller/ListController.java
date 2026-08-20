@@ -21,4 +21,4 @@ public class ListController {
         System.out.println(">>>>list controller list()");
         return service.list();
     }
-}
+}   

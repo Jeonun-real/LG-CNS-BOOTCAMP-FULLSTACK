@@ -25,8 +25,10 @@ public class ReactServiceImpl implements ReactService {
 
     @Override
     public BlogResponseDTO read(int blogId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        System.out.println(">>>>blog service read param: "+blogId);
+        //dao에 findbyid 호출을 통해 전달된 Optional 을 확인하고 객체 또는 null을 반환하는 구현
+
+        return dao.findById(blogId).orElse(null); 
     }
 
     @Override

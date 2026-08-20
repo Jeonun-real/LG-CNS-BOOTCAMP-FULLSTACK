@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,13 +15,14 @@ import lombok.Setter;
 @Getter
 public class BlogService {
     
-    private String msg;
+    private String msg ;
 
-    public BlogResponseDTO[] blogs(){
-        System.out.println("businesslogic blogs()");
-
-        //stream api
-        return BlogRepository.builder().build().blogs();
+    public BlogResponseDTO[] blogs() {
+        System.out.println("debug >>>> BlogService blogs() ");
+        // stream api 
+        return BlogRepository.builder().build().blogs() ; 
     }
-    
+
+
 }
+
