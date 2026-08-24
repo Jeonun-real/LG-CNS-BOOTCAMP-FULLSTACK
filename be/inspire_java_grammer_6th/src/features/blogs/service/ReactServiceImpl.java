@@ -1,5 +1,10 @@
 package features.blogs.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 import features.blogs.domain.dto.BlogRequestDTO;
@@ -33,26 +38,52 @@ public class ReactServiceImpl implements ReactService {
 
     @Override
     public int insert(BlogRequestDTO request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+        System.out.println("debug >>>> blog service insert params :  "+request); 
+        return dao.save(request) ;    
     }
 
     @Override
     public int update(BlogRequestDTO request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updata'");
+        System.out.println("debug >>>> blog service update params :  "+request);
+        return dao.update(request);  
     }
 
+   
     @Override
     public int delete(int blogId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        System.out.println(">>>>blog service delete param: "+blogId);
+        return dao.delete(blogId);
+
     }
 
     @Override
-    public List<BlogResponseDTO> search() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    public List<BlogResponseDTO> search(BlogRequestDTO request) {
+        System.out.println("debug >>>> blog service search params :  "+request);
+        return dao.findByKeyword(request);  
     }
     
+    @Override
+    public boolean saveToFile() {
+        System.out.println(">>>>blog service file save:");
+        String path = "./be/inspire_java_grammer_6th/blogs.txt";
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(path)))){
+            oos.writeObject(dao.findByAll());
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    @Override
+    public boolean loadToFile() {
+        System.out.println(">>>>blog service file load:");
+        String path = "./be/inspire_java_grammer_6th/blogs.txt";
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(path)))){
+            dao.setBlogs((List<BlogResponseDTO>)ois.readObject());
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

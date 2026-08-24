@@ -17,5 +17,9 @@ public interface ReactService {
 
     public List<BlogResponseDTO>    search(BlogRequestDTO request); 
 
+    //file save, load
+    public boolean saveToFile();
+    public boolean loadToFile();
+
 }
  

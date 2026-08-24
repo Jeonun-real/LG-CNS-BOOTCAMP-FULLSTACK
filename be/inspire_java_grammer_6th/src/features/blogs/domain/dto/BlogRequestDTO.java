@@ -1,19 +1,25 @@
 package features.blogs.domain.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Builder //객체생성
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
 public class BlogRequestDTO {
     
-    private int id;
-    private String title;
-    private String content;
-    private String email;
-
+    private int     blogId ;
+    private String  title ;
+    private String  content ;
+    private String  email ;
+    
     /////////////////////////////
     private String  keyword ; 
 
@@ -26,5 +32,7 @@ public class BlogRequestDTO {
                     .content(request.getContent())
                     .email(request.getEmail())
                     .build() ;
-    }     
+    } 
+
+    
 }

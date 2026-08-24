@@ -3,13 +3,17 @@ package features.blogs.factory;
 import java.util.HashMap;
 import java.util.Map;
 
+import features.blogs.controller.DeleteController;
+import features.blogs.controller.FileController;
 import features.blogs.controller.InsertController;
 import features.blogs.controller.ListController;
 import features.blogs.controller.ReadController;
 import features.blogs.controller.SearchController;
+import features.blogs.controller.UpdateController;
 import features.blogs.repository.BlogReactDao;
 import features.blogs.service.ReactService;
 import features.blogs.service.ReactServiceImpl;
+
 /*
 singleton   pattern
 factory     pattern 
@@ -38,6 +42,9 @@ public class BeanFactory {
         map.put("read.inspire",     new ReadController(service)); 
         map.put("search.inspire",   new SearchController(service)); 
         map.put("insert.inspire",   new InsertController(service)); 
+        map.put("delete.inspire",   new DeleteController(service)); 
+        map.put("update.inspire",   new UpdateController(service)); 
+        map.put("file.inspire",     new FileController(service)); 
     }
 
     public static BeanFactory getInstance() {

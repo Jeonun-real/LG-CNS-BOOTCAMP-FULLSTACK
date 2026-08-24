@@ -3,7 +3,7 @@ package features.blogs.view;
 import java.util.*;
 
 import features.blogs.facade.FrontController;
-
+import features.blogs.util.ResponseEntity;
 import features.blogs.domain.dto.BlogResponseDTO;
 
 public class ReactView {
@@ -23,7 +23,8 @@ public class ReactView {
     }
     
     public void landingPage(){
-        
+        boolean isLoad = front.file("file.inspire","load");
+        System.out.println(isLoad? "데이터 로딩완료!!" : "데이터 로딩 등 실패");
         while(true){
             System.out.println();
             System.out.println(">>>>> inspire camp v1.0<<<<<");
@@ -55,8 +56,14 @@ public class ReactView {
                         insert();
                         break;
                     case 4:
-                        search();
+                        update();
                         break;
+                    case 5:
+                        delete();
+                        break;                        
+                    case 6 : 
+                        search();
+                        break ;
                     case 99:
                         exit();
                         break;
@@ -76,23 +83,32 @@ public class ReactView {
 
     } //landingPage block end
 
-    public void exit(){
+    public void exit() {
         System.out.println();
-        System.out.println(">>>시스템을 종료합니다<<<");
-        System.exit(1);
+        System.out.println(">>>> 작업된 내용을 저장하고 시스템을 종료하시겠습니까?(y/n) ") ; 
+        String yesOrNo = scan.nextLine() ;
+        if( yesOrNo.equalsIgnoreCase("y")) {
+            String endPoint = "file.inspire";
+            System.out.println(front.file(endPoint, "save") ? "데이터 저장 완료!!" : "데이터 저장 실패");
+        }
+        System.exit(1);  
+        
     } // exit block end 
 
-    public void list(){
+    public void list() {
         System.out.println();
-        System.out.println(">>>> 데이터 출력");
-        String endPoint = "list.inspire";
-        List<BlogResponseDTO> response = front.list(endPoint);
+        System.out.println(">>>> 데이터 출력 ") ; 
+        String endPoint = "list.inspire" ; 
+        ResponseEntity<List<BlogResponseDTO>> response = front.list(endPoint) ;
 
-        //stream api 출력 = json의 데이터를 렌더링
-        response.stream()
-            .forEach(blog->System.out.println(blog));
+        // stream api 출력 == json rendering (react)  
+        if( response.getCode() == 200) {
+            response.getData().stream()
+            .forEach(System.out::println); 
+        }
+        
+
     }
-
     public void read(){
         System.out.println();
         System.out.println(">>>> 상세페이지 정보");
@@ -146,5 +162,34 @@ public class ReactView {
         System.out.println( (flag == 1) ? "입력성공" : "입력실패");
 
     }
+    
+    public void delete(){
+        System.out.println();
+        System.out.println(">>>> 데이터삭제화면");
+        String endPoint = "delete.inspire";
+        System.out.println("키(blogId)입력");
 
+        int blogId = Integer.parseInt(scan.nextLine());
+        int response = front.delete(endPoint, blogId);
+        //출력 또는 정보 없음
+        System.out.println((response == 1)? "삭제성공" : "정보없음");
+
+    }
+    
+    public void update(){
+        System.out.println();
+        System.out.println(">>>> 데이터 수정화면");
+
+        String endPoint = "update.inspire";
+        System.out.println("수정하고자 하는 키(blogId)입력");
+        int blogId = Integer.parseInt(scan.nextLine());
+
+        System.out.print("제목 : "); 
+        String title = scan.nextLine();
+        System.out.print("내용 : "); 
+        String content = scan.nextLine();
+
+        int  flag = front.update(endPoint, blogId, title, content);
+        System.out.println((flag == 1)? "수정성공" : "수정실패");
+    }
 }
