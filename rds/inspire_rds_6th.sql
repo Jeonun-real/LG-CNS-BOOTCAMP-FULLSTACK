@@ -127,6 +127,184 @@ SELECT *
 FROM employee
 WHERE dept_id IN('60','90');
 
+-- SQL DAY2(함수)
+/*
+함수?
+- 하나의 큰 프로그램에서 반복적으로 사용되는 부분들을 분리한 작은 서브프로그램
+- 호출하고 반환
+- 유형
+	- 단일행 함수(문자, 날짜, 숫자, 기타변환 함수...)
+	- 복숳행 함수(그룹) : min, max, sum, count, avg, etc...(window function)
+- 정렬
+- 서브그룹(group by, having)	 
+*/
+
+SELECT *
+FROM employee;
+
+-- 칼럼의 타입: 문자, 날짜, 숫자
+-- 문자열 함수:
+-- LENGTH, CONCAT, SUBSTRING, LEFT, RIGHT, INSTR, REPLACE, UPPER, LOWER, TRIM .. '
+
+SELECT LENGTH('서정운')
+		, LENGTH('jeongun')
+		, CHAR_LENGTH('서정운')
+
+SELECT EMP_NAME
+		, LENGTH(EMP_NAME) 
+FROM employee;
+
+SELECT UPPER('lgcns')
+		, LOWER('LGCNS');
+
+
+SELECT LENGTH(TRIM('  TRIM  '))
+		,LENGTH(LTRIM('  TRIM  '))
+		,LENGTH(RTRIM('  TRIM  '))
+
+-- 문자열을 채우는 함수 : LPAD, RPAD
+SELECT LPAD('5',3,'#')
+		,LENGTH(LPAD('5',3,' '))
+		,RPAD('5',3,' ')
+		,LENGTH(RPAD('5',3,' '));
+
+
+SELECT EMAIL
+		,LENGTH (EMAIL)
+		,LPAD(EMAIL, 20, '#')
+FROM employee;
+
+SELECT CHAR(65)
+		,CONCAT('서정운','님');
+
+-- SUBSTRING : 부분문자열을 반환하는 함수(LEFT, RIGHT)
+SELECT SUBSTRING('ABCDEF',1,2)
+		,LEFT('ABCDEF', 2)
+		,RIGHT('ABCDEF', 2);
+
+SELECT SUBSTRING('THIS IS INSPIRE CAMP' FROM 9 FOR 7)
+		,SUBSTRING('THIS IS INSPIRE CAMP' ,9 , 7)
+		,SUBSTRING_INDEX('WWW.LGCNS.COM' ,'.' , 3);
+
+
+-- INSTR: 문자열을 이용해서 구분문자열의 인덱스를 반환
+SELECT INSTR('LGCNS CAMP','CAP');
+
+-- Q) . 앞의 문자 'C' 인덱스 번지를 검색
+-- Q) 메일 아이디만 추출
+
+SELECT *
+FROM employee;
+
+SELECT EMAIL
+      ,INSTR(EMAIL, 'c.')
+      ,LEFT(EMAIL, INSTR(EMAIL, '@') - 1)
+      ,SUBSTRING_INDEX(EMAIL, '@', 1)
+FROM EMPLOYEE;
+		
+
+SELECT EMAIL,
+		INSTR(EMAIL,'C.'),
+		CHAR_LENGTH(EMAIL)-CHAR_LENGTH('.COM'),
+		LEFT(EMAIL,INSTR(EMAIL,'@')-1),
+		SUBSTRING_INDEX(EMAIL,'@',1)
+FROM employee;
+
+-- 반복 및 부분무자열 변경
+SELECT REPEAT('LGCNS',3)
+		,REPLACE('오늘은 즐거운 함수 수업','함수','메서드');
+
+
+-- 입사년도만 추출
+SELECT SUBSTRING(HIRE_DATE, 1, 4)
+		,LEFT(HIRE_DATE, 4)
+		,SUBSTRING_INDEX(HIRE_DATE,'-',1)
+FROM employee;
+
+SELECT CONCAT(LEFT(EMP_NO,8),'******')
+FROM employee;
+
+
+-- CASTING : CAST(TYPE AS TYPE)
+SELECT SUBSTRING(EMP_NO, 1, 6)
+		,SUBSTRING(EMP_NO, 8, 7)
+		,CAST(SUBSTRING(EMP_NO, 1, 6) AS INT) + CAST(SUBSTRING(EMP_NO, 8, 7) AS INT)
+FROM employee;
+
+SELECT SUBSTRING(EMP_NO, 1, 6)
+		,SUBSTRING(EMP_NO, 8, 7)
+		,SUBSTRING(EMP_NO, 1, 6) + SUBSTRING(EMP_NO, 8, 7)
+FROM employee;
+
+
+
+USE SQLDB;
+
+SELECT * 
+FROM usertbl;
+
+SELECT * 
+FROM buytbl;
+
+-- 고객들에 대한 평균 구매 개수를 검색
+SELECT AVG(AMOUNT)
+		,CAST(AVG(AMOUNT) AS INT)
+		,CAST(AVG(AMOUNT) AS SIGNED INTEGER)
+FROM buytbl;
+
+-- 구매번호, 총금액(PRICE*AMOUNT =), 구매액을 검색한다면?
+-- CAST() 함수 활용
+
+
+SELECT num AS '구매번호',
+		CONCAT(
+			cast(price AS VARCHAR(10))
+			,'*'
+			, cast(amount AS VARCHAR(10))
+			, '='
+			) AS '총금액'
+		, price * amount AS '구매액'
+FROM buytbl;
+
+-- 숫자함수
+SELECT ABS(-100)
+		,CEILING(4.7)
+		,CEILING(4.1)
+		,FLOOR(4.7)
+		,FLOOR(4.1)
+		,ROUND(3234.2314, 2)
+		,ROUND(3234.2314, -2)
+		,TRUNCATE(3234.2314, 2)
+		,TRUNCATE(3234.2314, -2)
+		,GREATEST(10,20,100,30)
+		,LEAST(10,20,100,30);
+
+-- 날짜함수
+SELECT NOW()
+		,SYSDATE()
+		,CURDATE()
+		,CURTIME()
+		,ADDDATE(CURDATE(), INTERVAL 30 YEAR)
+		,ADDDATE(CURDATE(), INTERVAL 30 MONTH)
+		,ADDDATE(CURDATE(), INTERVAL 30 DAY);
+
+
+SELECT HIRE_DATE
+		,CAST(HIRE_DATE+1 AS DATE)
+FROM employee;
+
+-- 입사일을 기준으로 근속연수가 30년이 되는 일자를 검색한다면?
+SELECT HIRE_DATE,
+		ADDDATE(HIRE_DATE, INTERVAL 30 YEAR) 
+FROM employee;
+
+SELECT * 
+FROM employee;
+
+-- 오늘 날짜를 기준으로 근속연수가 30년 이상인 사원의 모든 정보를 검색한다면?
+SELECT emp_name, DATEDIFF(CURDATE(), HIRE_DATE)
+FROM employee
+WHERE DATEDIFF(CURDATE(), HIRE_DATE) > 30* 365;
 
 
 
