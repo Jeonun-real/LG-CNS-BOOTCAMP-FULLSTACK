@@ -784,6 +784,365 @@ left jOIN employee m ON(e.MGR_ID = m.EMP_ID)
 left jOIN employee s ON(m.MGR_ID = s.EMP_ID)
 
 
+-- SQL DAY4 subquery
 
+/*
+서브쿼리란?
+- 하나의 쿼리가 다른 쿼리를 포함하는 구조
+- 유형(유형에 따라서 사용할수 있는 연산자가 다름)
+	- 단일행(단인열, 다중열): 일반연산자들 사용가능
+	- 다중행(단인열, 다중열): ANY. ALL, IN
+- 위치
+	- SELECT (SCALAR SUBQUERY). FROM(INLINE VIEW), WHERE (SUBQUERY)
+*/
+
+USE lgcns
+
+SELECT student_name
+FROM tb_student s
+WHERE ABSENSE_YN = 'Y'
+AND DEPARTMENT_NO(
+						SELECT DEPARTMENT_NO
+						FROM TB_DEPARTMENT
+						WHERE DEPARTMENT_NAME ='국어국문학과'
+						)
+AND SUBSTRING(S.STUDNET_SSN, 8, 1) = '2';
+
+SELECT *
+FROM EMPLOYEE
+
+SELECT *
+FROM department
+
+-- 나승원 사원과 같은 직급이고 나승원 사원보다 많은 급여를 받는 사원의 정보를 겁색한다면?
+
+
+
+-- 단일행/단일열
+SELECT *
+FROM employee
+WHERE job_id = ( 
+					  SELECT job_id
+					  FROM employee
+					  WHERE emp_name = '나승원'
+					)
+AND salary> (	
+					SELECT salary
+					FROM employee
+					WHERE emp_name = '나승원'
+				)
+				
+-- 부서별 급여총합이 가장 높은 부서의 부서명과 급여총합을 검색한다면?
+
+SELECT
+FROM department d, employee e 
+WHERE
+GROUP BY e.DEPT_ID
+
+
+
+SELECT d.DEPT_NAME,SUM(e.SALARY) AS 'suss', MAX(suss)
+FROM employee e 
+JOIN department d ON (e.DEPT_ID = d.DEPT_ID)
+GROUP BY d.DEPT_NAME
+ORDER BY 2 DESC;
+
+-- inline table = virtual table
+SELECT v.dept_name, MAX(v.sum)
+FROM ( 
+		SELECT d.DEPT_NAME,SUM(e.SALARY) AS 'sum'
+		FROM employee e 
+		JOIN department d ON (e.DEPT_ID = d.DEPT_ID)
+		GROUP BY d.DEPT_NAME
+		) V
+	
+	
+-- 다중행 
+-- 서브쿼리의 반환결과가 1개가 아니라 여러개이기때문에 any all in을 사용하여야 함.
+SELECT D.DEPT_NAME, SUM(e.SALARY)
+FROM employee e 
+JOIN department d ON (e.DEPT_ID = d.DEPT_ID)
+GROUP BY dept_name
+HAVING SUM(e.salary) = (
+								SELECT MAX(v.total)
+								FROM (
+										select SUM(salary) AS 'total' 
+										FROM employee e
+										JOIN department d ON (e.DEPT_ID = d.DEPT_ID)
+										GROUP BY dept_name
+										) v
+								) 
+
+
+	
+-- limit을 활용한 TOP-N 분석 방식						
+SELECT D.DEPT_NAME, SUM(e.SALARY)
+FROM employee e 
+JOIN department d ON (e.DEPT_ID = d.DEPT_ID)
+GROUP BY dept_name
+ORDER BY SUM(e.SALARY) DESC
+LIMIT 1
+
+
+
+SELECT *
+FROM employee
+WHERE salary = ( SELECT MIN(salary) 
+						FROM employee);
+
+
+
+SELECT	G.STUDENT_NO
+         ,S.STUDENT_NAME
+FROM        tb_grade G
+JOIN        tb_student S USING(STUDENT_NO)
+GROUP BY    STUDENT_NO
+HAVING G.STUDENT_NO IN (
+    								SELECT    S.STUDENT_NO
+    								FROM        tb_student S
+    								WHERE        S.DEPARTMENT_NO = (
+        																		SELECT    DEPARTMENT_NO
+        																		FROM        TB_DEPARTMENT
+        																		WHERE    DEPARTMENT_NAME = '국어국문학과'
+    																			)
+								)
+ORDER BY AVG(G.POINT) DESC
+LIMIT 1;
+
+
+
+
+
+SELECT D.DEPT_NAME, SUM(E.SALARY)
+FROM department D
+JOIN employee E ON (D.DEPT_ID = E.DEPT_ID)
+GROUP BY DEPT_NAME
+HAVING SUM(E.SALARY) = (
+                                SELECT MAX(SUM_SALARY)
+                                FROM (
+                                            SELECT SUM(SALARY) AS 'SUM_SALARY'
+                                            FROM department D
+                                            JOIN employee E ON (D.DEPT_ID = E.DEPT_ID) 
+                                            GROUP BY DEPT_NAME
+                                      ) V
+                            );
+                            
+                            
+SELECT v.STUDENT_NO
+		,v.STUDENT_NAME
+FROM	(    
+			SELECT	s.STUDENT_NO
+						,s.STUDENT_NAME
+						,RANK() OVER (ORDER BY AVG(g.POINT) DESC) AS rank
+         FROM	TB_GRADE g
+         JOIN  TB_STUDENT s ON g.STUDENT_NO = s.STUDENT_NO
+         JOIN  TB_DEPARTMENT d ON s.DEPARTMENT_NO = d.DEPARTMENT_NO
+         WHERE d.DEPARTMENT_NAME = '국어국문학과'
+         GROUP BY s.STUDENT_NO, s.STUDENT_NAME ) v
+WHERE v.rank = 1;
+
+
+
+--ERROR
+SELECT E.*
+		,MIN(salary)
+FROM employee E;
+
+-- 다중열 case
+-- 부서별 최소금액을 받는 사원의 이름, 부서명, 급여를 검색한다면?
+
+
+SELECT emp_name
+		,dept_id
+		,salary
+FROM employee
+WHERE (dept_id, salary) in (SELECT dept_id, MIN(salary)
+									FROM employee e
+									GROUP BY e.dept_id)
+									
+
+SELECT sub.emp_name
+		,sub.dept_name
+		,sub.salary
+FROM(
+		SELECT e.emp_name
+				,d.dept_name
+				,e.salary
+				,RANK() OVER(PARTITION BY e.dept_id ORDER BY e.salary) AS 'rnk'
+		FROM employee e
+		JOIN department d ON(e.dept_id  =d.DEPT_ID)
+		) sub
+WHERE sub.rnk =1;
+
+
+SELECT *
+FROM  employee
+
+SELECT *
+FROM job
+
+-- 과장 직급 급여확인
+SELECT e.EMP_NAME,e.SALARY
+FROM employee e
+JOIN job j ON(e.job_id = j.JOB_ID)
+WHERE j.JOB_title = '과장';
+
+-- 대리 직급 급여확인
+SELECT e.EMP_NAME,e.SALARY
+FROM employee e
+JOIN job j ON(e.job_id = j.JOB_ID)
+WHERE j.JOB_title = '대리';
+
+
+-- 다중행 서브쿼리(any, all)
+-- >any, <any (박스 안 상한보다 작은거, 하한보다 큰거)
+-- >all, <all (박스 밖 상한보다 큰거, 하한보다 작은거)
+-- 과장직급보다 많은 급여를 받는 대리직급의 사원정보를 검색한다면?
+				
+SELECT e.EMP_NAME,
+       e.SALARY
+FROM employee e
+JOIN job j ON e.job_id = j.JOB_ID
+WHERE j.JOB_title = '대리'
+AND e.SALARY < All (
+    SELECT e2.SALARY
+    FROM employee e2
+    JOIN job j2 ON e2.job_id = j2.JOB_ID
+    WHERE j2.JOB_title = '과장'
+);
+
+
+-- top -N query === limit (없는 벤더사 제품이 있을수 있음)
+-- 정렬된 서브쿼리를 바탕으로 where c.순위 = 1;
+-- limit offset()
+
+USE lgcns
+
+SELECT E.DEPT_ID, SUM(salary)
+FROM employee e
+GROUP BY dept_id
+ORDER BY 2 DESC;
+
+
+-- offset: n+1 번지부터 n번지까지의 범위검색
+SELECT e.DEPT_ID, SUM(salary)
+FROM employee e
+GROUP BY dept_id
+ORDER BY 2 DESC
+LIMIT 3 OFFSET 0;
+		
+		
+-- 상관관계 서브쿼리
+-- 자기직급의 평균 급여를 받는 직원의 이름, 직급명, 급여를 검색한다면?
+-- 계산의 편의를 위해서 급여는 정수 5자리까지 절삭(truncate)
+
+--서브쿼리로 쓰고 싶은데 JOB_ID가 전달이 안되면 문제가 생김
+
+
+-- CASE 01
+SELECT e.EMP_NAME
+		,j.JOB_TITLE
+		,e.SALARY
+FROM job j
+JOIN employee e ON (j.JOB_ID = e.JOB_ID)
+WHERE (e.job_id, e.SALARY) IN (
+										SELECT JOB_ID, TRUNCATE(AVG(SALARY),-5)
+											FROM employee
+											GROUP BY job_id	
+									);
+
+-- 잘못된 예시
+SELECT e.EMP_NAME
+		,j.JOB_TITLE
+		,e.SALARY
+FROM job j
+JOIN employee e ON (j.JOB_ID = e.JOB_ID)
+WHERE (e.SALARY) IN (
+									SELECT TRUNCATE(AVG(SALARY),-5)
+									FROM employee
+									GROUP BY job_id
+									) v
+
+-- CASE 02
+
+SELECT	E.EMP_NAME,
+			J.JOB_TITLE,
+			E.SALARY					
+FROM	(	SELECT	JOB_ID, 
+						TRUNCATE(AVG(SALARY), -5) AS `JOBAVG`
+			FROM		employee 
+			GROUP BY JOB_ID ) V
+JOIN	employee E ON ( V.JOB_ID = E.JOB_ID AND V.JOBAVG = E.SALARY ) 
+JOIN	job		J ON ( E.JOB_ID = J.JOB_ID) ;
+
+-- case 03 상관관계 쿼리 
+SELECT e.EMP_NAME
+		,j.JOB_TITLE
+		,e.SALARY
+FROM job j
+JOIN employee e ON (j.JOB_ID = e.JOB_ID)
+WHERE e.SALARY = (
+						SELECT TRUNCATE(AVG(SALARY),-5)
+						FROM employee ee
+						WHERE ee.job_id = e.job_id);
+					
+					
+-- explain 존재
+EXPLAIN
+SELECT e.EMP_NAME
+		,j.JOB_TITLE
+		,e.SALARY
+FROM job j
+JOIN employee e ON (j.JOB_ID = e.JOB_ID)
+WHERE e.SALARY = (
+						SELECT TRUNCATE(AVG(SALARY),-5)
+						FROM employee ee
+						WHERE ee.job_id = e.job_id);
+					
+
+-- DDL 물리적 저장공간인 테이블 생성과 논리적 저장공간 VIEW
+-- DDL: CREATE, ALTER, DROP
+-- CONSTRAIN : PK, FK, NOT NULL, UNIQUE, CHECK
+-- DEFAULT : DML NULL 값이 입력될때 DEFALUT로 선언된 값이 자동으로 할당
+
+/*
+CREATE TABLE TABLE_NAME(
+	COLUMN_NAME DATETYPE(SIZE) [DEFAULT][CONSTRAIN TYPE] (옴션)
+	[CONSTRAIN TYPE] 테이블 레벨의 제약조건
+)
+
+OBJECT: TABLE, VIEW, INDEX. SEQUENCE, ETC..
+*/
+
+DROP DATABASE IF EXISTS TABLEDBtb_blogtb_blog;
+CREATE DATABASE TABLEDB;
+
+USE TABLEDB;
+
+DROP TABLE IF EXISTS TB_blog;
+
+-- CONSTRAIN은 관리용도
+-- CONSTRAINT TB_BLOG_ID_PK PRIMARY KEY 
+-- 보통 테이블 이름_칼럼명_속성으로 이름만듬
+
+CREATE TABLE TB_BLOG(
+ -- BLOG_ID VARCHAR(50) PRIMARY KEY. --COLUMN CONSTRAINT TB_BLOG_ID_PK 
+ BLOG_ID VARCHAR(50),
+ TITLE 	VARCHAR(100),
+ CONTENT VARCHAR(100),
+ EMAIL 	VARCHAR(100),
+ CATEGORY VARCHAR(100) CHECK(CATEGORY IN ('전체','취미','일상','코딩')), -- COLUMN 레벨 제약
+ CREATE_AT DATE DEFAULT SYSDATE(),
+ PRIMARY KEY (BLOG_ID) -- TABLE 레벨 CONSTRAINT
+);
+
+
+SELECT *
+FROM tb_blog;
+
+
+--DML
+INSERT INTO tb_blog(BLOG_ID, CATEGORY)
+VALUES ('1','전체');
 
 
