@@ -1114,7 +1114,7 @@ CREATE TABLE TABLE_NAME(
 OBJECT: TABLE, VIEW, INDEX. SEQUENCE, ETC..
 */
 
-DROP DATABASE IF EXISTS TABLEDBtb_blogtb_blog;
+DROP DATABASE IF EXISTS TABLEDB tb_blog;
 CREATE DATABASE TABLEDB;
 
 USE TABLEDB;
@@ -1145,4 +1145,277 @@ FROM tb_blog;
 INSERT INTO tb_blog(BLOG_ID, CATEGORY)
 VALUES ('1','전체');
 
+-- DAY5
 
+-- foreign key: 참모무결성(부모에 의존하는 데이터 또는 null)
+-- on delete cascade, 			on update, cascade
+-- on delete mno actiopn , 	on update on action	
+
+
+CREATE TABLE tb_job(
+	job_id VARCHAR(10),
+	job_title VARCHAR(50),
+	PRIMARY KEY(job_id)
+);
+
+INSERT INTO tb_job(job_id,job_title)
+VALUES('j1','대표이사');
+
+INSERT INTO tb_job(job_id,job_title)
+VALUES('j2','상무');
+
+SHOW INDEX FROM tb_job;
+
+
+
+CREATE TABLE tb_dept(
+	dept_id VARCHAR(10),
+	dept_title VARCHAR(50),
+	PRIMARY KEY(dept_id)
+);
+
+
+INSERT INTO tb_dept(dept_id ,dept_title)
+VALUES('10','교육팀');
+
+INSERT INTO tb_dept(dept_id,dept_title)
+VALUES('20','운영팀');
+
+
+
+
+
+SHOW INDEX FROM tb_dept;
+
+CREATE TABLE tb_emp(
+	emp_id varchar(10) PRIMARY KEY, -- char은 정확한 길이, varchar은 가변길이
+	emp_name VARCHAR(50) NOT NULL,
+	hire_date DATE DEFAULT SYSDATE(), -- date에 defalut를 쓸때 date 는 값이 날마다 변하기 때문에 주의 필요, defalut 는 고정된 값에 쓰는게 좋음
+	dept_id varchar(10) NOT NULL, -- fk가 걸릴려면 성능상 fk를 notnull 두고 기본 테이블과 연결
+	job_id VARCHAR(10) NOT NULL, 
+	FOREIGN KEY(dept_id) REFERENCES tb_dept(dept_id) ON DELETE CASCADE, -- 안넣으면 restrict 그래서 웬만하면 그냥 restrict 주는게 좋음
+	FOREIGN KEY(job_id) REFERENCES tb_job(job_id) ON UPDATE CASCADE
+);
+SHOW INDEX FROM tb_emp;
+
+INSERT INTO tb_emp(emp_id, emp_name, dpet_id, job_id)
+VALUES('100','jslim',NULL,NULL);
+
+
+INSERT INTO tb_emp(emp_id, emp_name, dpet_id, job_id)
+VALUES('100','jslim','30','j3');
+
+INSERT INTO tb_emp(emp_id, emp_name, dept_id, job_id)
+VALUES('100','jslim','10','j1');
+
+INSERT INTO tb_emp(emp_id, emp_name, hire_date, dept_id, job_id)
+VALUES('200','jslim',default,'10','j1');
+
+
+-- 벤더종속이긴 한데 이렇 게 쓴느 것도 가능
+INSERT INTO tb_emp(emp_id, emp_name, hire_date, dept_id, job_id)
+VALUES('300','jslim',NULL,'10','j1'); -- default 여도 null 넣으면 넣어짐
+VALUES('300','jslim',NULL,'10','j1'); -- default 여도 null 넣으면 넣어짐
+VALUES('300','jslim',NULL,'10','j1'); -- default 여도 null 넣으면 넣어짐
+
+
+
+SELECT *
+FROM tb_emp;
+
+SELECT *
+FROM tb_job;
+
+SELECT *
+FROM tb_dept
+
+
+DELETE from tb_dept
+WHERE dept_id ='10'; -- cascade라 연관된 모든걸 싹 날려버림, 현업에서 지양해야 될 옵션 cascade
+
+
+DROP TABLE if EXISTS tb_employee;
+CREATE TABLE tb_employee(
+	Emp_id VARCHAR(10),
+	emp_name VARCHAR(50) NOT NULL, -- not null은 테이블 레벨이 아닌 컬럼레벨만 가능
+	salary INT CHECK (salary>0),
+	gender CHAR(1) CHECK(gender IN ('f','m')), -- check 제약조건
+	hire_date DATE DEFAULT SYSDATE(),
+	job_id VARCHAR(10),	
+	dept_id VARCHAR(10)
+);
+SHOW INDEX FROM tb_employee;
+
+SELECT * FROM tb_employee;
+
+-- 테이블 스키마 수정 및 제약조건 추가, 변경
+-- alter table ~
+-- add, drop constraint -- add constraintㅇ른 테이블 단위만 가능
+-- add column
+-- change column old new int -- 이름과 타입변경
+-- modify column old int -- 타입변경, not null은 테이블 레벨잉 아닌 칼럼레벨이아 modify로
+-- drop column column_name
+-- rename -- 테이블 이름 변경 
+
+ALTER TABLE tb_employee
+ADD CONSTRAINT PRIMARY KEY(emp_id);
+
+-- job_id, dept_id 칼럼에 alter를 이용하여 not null과 foreign key 추가
+
+ALTER TABLE tb_employee
+MODIFY job_id VARCHAR(10) NOT NULL,
+ADD CONSTRAINT FOREIGN KEY(job_id) 
+REFERENCES tb_job(job_id);
+
+ALTER TABLE tb_employee
+MODIFY dept_id VARCHAR(10) NOT NULL,
+ADD CONSTRAINT FOREIGN KEY(dept_id) 
+REFERENCES tb_dept(dept_id);
+
+-- 실제 dbms에서 관리하는 제약확인
+SELECT CONSTRAINT NAME, constraint_type, TABLE_NAME
+FROM information_schema.table_constraints
+WHERE TABLE_schema = 'tabledb'
+AND TABLE_NAME = 'tb_employee'
+
+/*
+
+VIEW 가상의 논리적 테이블(읽기전용)
+사용이유? 보안
+보안적인 것은 제외하고 공개하는 방법
+
+CREATE OR REPLACE VIEW VIEW_NAME(alias)
+AS SUBQUERY;
+*/
+
+USE lgcns
+
+CREATE OR REPLACE VIEW EMP_VIEW(NAME,dept)
+AS
+SELECT e.emp_name 
+		,d.dept_name 
+FROM department d
+JOIN employee e ON(d.DEPT_ID = e.dept_ID)
+WHERE e.DEPT_ID = '90';
+
+SELECT *
+FROM emp_view
+
+
+-- DROP TABLE TABLE_NAME
+-- DROP VIEW VIEW_NAME
+
+
+-- DML(DATA MANIPULATION LANGUAGE)
+-- INSERT UPDATE DELETE, TRANSACTION(COMMIT, ROLLBACK)
+-- 문제가 생기면 원하는 지점으로 ROPLLBACK 가능
+
+-- UPDATE : 테이블에 포함된 기존 데이터를 수정
+/*
+UPDATE TABLE_NAME
+SET COLUMN_NAME = {VALUE | SUBQUERY}, COLUMN_NAME = {VALUE | SUBQUERY}
+WHERE CONDITION = {VALUE | SUBQUERY}
+*/
+
+SELECT * FROM department;
+
+UPDATE department
+SET dept_name = '전력기획팀'
+WHERE dept_id = '90';
+
+ROLLBACK ; -- 이미 auto commit으로 commit 됬기 때문에 rollback이 안됨
+
+-- 심하균의 직급과 부서를 성혜교 사원과 같은 직급의 부서로 수정한다면?
+UPDATE employee
+SET JOB_ID = (
+				  SELECT JOB_ID
+    			  FROM EMPLOYEE
+    			  WHERE EMP_NAME = '성해교'
+    			 ) , 
+	 DEPT_ID = (
+	 				SELECT DEPT_ID
+               FROM EMPLOYEE
+    				WHERE EMP_NAME = '성해교'
+    			  )
+WHERE EMP_NAME = '심하균';
+
+
+-- 한선기 대표를 기혼에서 돌싱으로 만들어 본다면
+UPDATE employee
+SET mariage = DEFAULT
+WHERE emp_name = '한선기';
+
+-- 데이터의 참조무결성을 고민??
+-- fk 수정시 error 발생
+UPDATE employee
+SET dept_id = NULL 
+WHERE emp_id = '100';
+
+--해외영업 2팀의 사원의 보너스 비율(bonus_pct)를 0.3 수정하고 싶다면?
+UPDATE employee
+SET bonus_pct = 0.3
+WHERE dept_name = (SELECT dept_name 
+						 FROM employee 
+						 WHERE dept_name = '해외영업 2팀')
+						 
+						 
+-- insert : 데이터를 추가
+/*
+데이터의 타입, 순서, 개수
+ insert into table_name([column_name] values(values);
+*/
+SELECT *
+FROM employee;
+
+-- delete: 테이블에 포함된 데이터 삭제(전체 행 수가 달랒딤)
+/*
+delete from table_name
+where condition
+*/
+
+DELETE FROM department
+WHERE dept_id = '50'
+
+-- SEQUENCE (10. ~)
+-- NEXTVAL(), LASTVAL()
+-- NEXT는 1씩 증가, LAST는 현재값 
+-- EMP_ID IN1T AUTO_INCREMENT PRIMARY KEY
+-- DROP으로 제거
+
+CREATE SEQUENCE SEQ_TEST; -- 1 에서 무한대까지 1증가
+SELECT NEXTVAL(SEQ_TEST);
+SELECT LASTVAL(SEQ_TEST);
+SELECT PREVIOUS VALUE FOR SEQ_TEST;
+
+DROP SEQUENCE SEQ_TEST;
+
+
+CREATE SEQUENCE SEQ_TEST
+	START WITH 1000
+	INCREMENT BY 2
+	MAXVALUE 1005;
+	-- NOCYCLE
+	-- CACHE20
+
+SELECT NEXTVAL(SEQ_TEST);
+
+CREATE TABLE TB_TEMP(
+	ORDER_ID INT DEFAULT (NEXTVAL(SEQ_TEST)) PRIMARY KEY,
+	CUSTOMENT_NAME VARCHAR(50)
+)
+
+INSERT INTO TB_TEMP(CUSTOMENT_NAME) VALUES('JSLIM');
+SELECT *
+FROM TB_TEMP;
+
+SHOW TABLES;
+
+-- AUTO_INCREAMENT는 자동이라 값을 임의 지정 못함, 단 ALTER를 통한 재조정은 가능
+CREATE TABLE TB_AUTO_TEMP(
+	ORDER_ID INT AUTO_INCREMENT PRIMARY KEY, 
+	CUSTOMENT_NAME VARCHAR(50)
+);
+INSERT INTO TB_AUTO_TEMP(CUSTOMENT_NAME) VALUES('JSLIM');
+
+SELECT *
+FROM TB_AUTO_TEMP;
