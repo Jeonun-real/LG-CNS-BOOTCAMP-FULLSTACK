@@ -6,5 +6,9 @@
     "java.project.outputPath": "be/inspire_java_grammer_6th/bin",
     "java.project.referencedLibraries": [
         "be/inspire_java_grammer_6th/lib/**/*.jar"
-    ]
+    ],
+    "java.import.gradle.user.home": "C:\\Users\\tjwjd\\.gradle",
+    "java.import.gradle.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.12.8-hotspot",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic"
 }

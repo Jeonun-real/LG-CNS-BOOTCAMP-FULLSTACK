@@ -311,6 +311,473 @@ LEFT JOIN TB_PROFESSOR p ON (s.COACH_PROFESSOR_NO = p.PROFESSOR_NO)
 WHERE d.DEPARTMENT_NAME = '서반아어학과'
 ORDER BY s.STUDENT_NO DESC;
 
+-- 15
+SELECT s.STUDENT_NO,
+       s.STUDENT_NAME,
+       d.DEPARTMENT_NAME,
+       g.AVG_POINT
+FROM tb_student s
+JOIN tb_department d
+  ON s.DEPARTMENT_NO = d.DEPARTMENT_NO
+JOIN (
+    SELECT STUDENT_NO,
+           AVG(POINT) AS AVG_POINT
+    FROM tb_grade
+    GROUP BY STUDENT_NO
+    HAVING AVG(POINT) > 4.0
+) g
+  ON s.STUDENT_NO = g.STUDENT_NO;
+
+-- 16
+SELECT c.CLASS_NAME AS '과목명',
+       ROUND(AVG(g.POINT), 1) AS '평점'
+FROM TB_CLASS c
+JOIN TB_DEPARTMENT d
+    ON c.DEPARTMENT_NO = d.DEPARTMENT_NO
+JOIN TB_GRADE g
+    ON c.CLASS_NO = g.CLASS_NO
+WHERE d.DEPARTMENT_NAME = '환경조경학과'
+GROUP BY c.CLASS_NO, c.CLASS_NAME;
+-- 17
+SELECT s.STUDENT_NAME,
+       s.STUDENT_ADDRESS
+FROM TB_STUDENT s
+WHERE s.DEPARTMENT_NO = (
+    SELECT DEPARTMENT_NO
+    FROM TB_STUDENT
+    WHERE STUDENT_NAME = '최경희'
+);
+
+
+-- 18
+SELECT s.STUDENT_NAME,
+       s.STUDENT_NO
+FROM TB_STUDENT s
+JOIN TB_DEPARTMENT d
+    ON s.DEPARTMENT_NO = d.DEPARTMENT_NO
+JOIN TB_GRADE g
+    ON s.STUDENT_NO = g.STUDENT_NO
+WHERE d.DEPARTMENT_NAME = '국어국문학과'
+GROUP BY s.STUDENT_NO, s.STUDENT_NAME
+ORDER BY AVG(g.POINT) DESC
+LIMIT 1;
+
+-- 19
+SELECT d.DEPARTMENT_NAME AS '계열 학과명',
+       ROUND(AVG(g.POINT), 1) AS '전공평점'
+FROM TB_DEPARTMENT d
+JOIN TB_CLASS c
+    ON d.DEPARTMENT_NO = c.DEPARTMENT_NO
+JOIN TB_GRADE g
+    ON c.CLASS_NO = g.CLASS_NO
+WHERE d.CATEGORY = (
+    SELECT CATEGORY
+    FROM TB_DEPARTMENT
+    WHERE DEPARTMENT_NAME = '환경조경학과'
+)
+GROUP BY d.DEPARTMENT_NO, d.DEPARTMENT_NAME;
+
+-- ddl
+USE lgcns
+
+-- 1
+CREATE TABLE TB_CATEGORY(
+	NAME VARCHAR(10),
+	USE_YN CHAR(1) DEFAULT 'Y'
+)
+
+-- 2
+CREATE TABLE TB_CLASS_TYPE(
+	NO VARCHAR(5) PRIMARY KEY,
+	NAME VARCHAR(10)
+)
+
+-- 3
+ALTER TABLE TB_CATEGORY
+ADD CONSTRAINT PRIMARY KEY(NAME)
+
+-- 4
+ALTER TABLE TB_CLASS_TYPE
+MODIFY NAME VARCHAR(10) NOT NULL
+
+--5
+ALTER TABLE TB_CATEGORY
+MODIFY NAME VARCHAR(20);
+
+ALTER TABLE TB_CLASS_TYPE
+MODIFY no VARCHAR(10) 
+
+--6
+ALTER TABLE TB_CATEGORY
+RENAME COLUMN NAME TO CATEGORY_NAME;
+
+ALTER TABLE TB_CLASS_TYPE
+RENAME COLUMN no TO CLASS_TYPE_NO
+
+--7
+ALTER TABLE TB_CATEGORY
+DROP CONSTRAINT PRIMARY KEY,
+ADD CONSTRAINT PK_CATEGORY_NAME PRIMARY KEY (CATEGORY_NAME);
+
+ALTER TABLE TB_CLASS_TYPE
+DROP CONSTRAINT PRIMARY KEY,
+ADD CONSTRAINT PK_CLASS_TYPE_NO PRIMARY KEY (CLASS_TYPE_NO);
+
+-- 8
+INSERT INTO tb_category
+VALUES
+('공학','Y'),
+('자연과학','Y'),
+('의학','Y'),
+('예체능','Y'),
+('인문사회','Y');
+
+-- 9
+ALTER TABLE TB_DEPARTMENT
+ADD CONSTRAINT FK_TB_DEPARTMENT_CATEGORY
+FOREIGN KEY(category) 
+REFERENCES tb_category(category_name) ;
+
+-- 10
+CREATE OR REPLACE VIEW
+    VW_학생일반정보(학번, 학생이름, 주소)
+AS SELECT
+    S.STUDENT_NO
+    , S.STUDENT_NAME
+    , S.STUDENT_ADDRESS
+FROM tb_student S;
+
+-- 11
+CREATE OR REPLACE VIEW VW_지도면담(학생이름, 학과이름, 지도교수이름)
+AS
+SELECT S.STUDENT_NAME, D.DEPARTMENT_NAME, P.PROFESSOR_NAME
+FROM tb_student S
+JOIN tb_department D ON(S.DEPARTMENT_NO = D.DEPARTMENT_NO)
+LEFT JOIN tb_professor P ON(S.COACH_PROFESSOR_NO = P.PROFESSOR_NO)
+ORDER BY D.DEPARTMENT_NAME;
+
+-- 12
+CREATE OR REPLACE VIEW VW_학과별학생수(DEPARTMENT_NAME, STUDENT_COUNT)
+AS
+SELECT D.DEPARTMENT_NAME, COUNT(S.DEPARTMENT_NO)
+FROM tb_student S
+JOIN tb_department D ON(S.DEPARTMENT_NO = D.DEPARTMENT_NO)
+GROUP BY D.DEPARTMENT_NO
+
+-- 13 (단일뷰는 업데니트가 가능한데, join된 뷰는 업데이트가 불가)
+UPDATE VW_학생일반정보
+SET 학생이름 = '서정운'
+WHERE 학번 = 'A213046'
+
+-- 14 (CHECK 옵션을 통해 변경사항을 막을수 있음)
+CREATE OR REPLACE VIEW
+    VW_학생일반정보(학번, 학생이름, 주소)
+AS SELECT
+    S.STUDENT_NO
+    , S.STUDENT_NAME
+    , S.STUDENT_ADDRESS
+FROM tb_student S
+WHERE ~~~~~ 
+WITH CHECK OPTION;
+
+-- 15
+SELECT C.CLASS_NO   AS 과목번호,
+       C.CLASS_NAME AS 과목이름,
+       COUNT(*)      AS `누적수강생수(명)`
+FROM TB_CLASS C
+JOIN tb_grade G ON (C.CLASS_NO = G.CLASS_NO)
+WHERE SUBSTRING(G.TERM_NO, 1, 4) BETWEEN '2007' AND '2009'
+GROUP BY C.CLASS_NO,C.CLASS_NAME
+ORDER BY COUNT(*) DESC, C.CLASS_NO
+LIMIT 3;
+
+
+
+
+
+
+
+SHOW CREATE TABLE TB_CATEGORY;
+SHOW CREATE TABLE TB_CLASS_TYPE;
+SELECT * FROM TB_CATEGORY;
+SELECT * FROM tb_class_type;
+SELECT * FROM tb_department;
+SELECT * FROM tb_student;
+
+
+-- 15 2009년 기준 3년
+
+
+-- 쇼핑몰 ERD
+USE sqldb
+
+DROP TABLE product
+DROP TABLE customer
+
+-- 1
+CREATE TABLE PRODUCT (
+	pno INT PRIMARY KEY
+	,pname VARCHAR(20) NOT NULL
+	,cost INT NOT NULL DEFAULT 0
+	,stock INT NOT NULL DEFAULT 0
+)
+
+
+CREATE TABLE customers (
+	cno INT PRIMARY key
+	,cname VARCHAR(10) NOT null
+	,address VARCHAR(50) NOT null
+	,email VARCHAR(20) NOT null
+	,phone VARCHAR(20) NOT null
+)
+
+CREATE TABLE ORDERS(
+	orderno INT PRIMARY KEY
+	,orderdate DATE NOT NULL DEFAULT SYSDATE()
+	,address VARCHAR(50) NOT NULL 
+	,phone VARCHAR(20) NOT NULL 
+	,STATUS VARCHAR(20) NOT NULL CHECK(status IN ('결제완료','배송중','배송완료'))
+	,cno INT NOT NULL
+	,FOREIGN KEY(cno) REFERENCES customers(cno) 
+)
+
+CREATE TABLE ORDERDETAIL(
+	orderno INT 
+	,pno INT 
+	,qty INT DEFAULT 0
+	,cost INT DEFAULT 0
+	,PRIMARY KEY(orderno,pno)
+	,FOREIGN KEY(orderno) REFERENCES orders(orderno)
+	,FOREIGN KEY(pno) REFERENCES PRODUCT(pno)
+)
+
+-- 2
+INSERT INTO product (pno, pname, cost, stock)
+VALUES
+	(1001, '삼양라면', 1000, 200)
+	,(1002, '새우깡', 1500, 500)
+	,(1003, '월드콘', 2000, 350)
+	,(1004, '빼빼로', 2000, 700)
+	,(1005, '코카콜라', 1800, 550)
+	,(1006, '환타', 1600, 300)
+
+
+-- 3
+INSERT INTO customers (cno, cname, address, email, phone)
+VALUES
+	(101, '김철수', '서울 강남구', 'cskim@naver.com', '899-6666')
+	,(102, '이영희', '부산 서면', 'yhlee@empal.com', '355-8882')
+	,(103, '최진국', '제주 동광양', 'jkchoi@gmail.com', '852-5764')
+	,(104, '강준호', '강릉 홍제동', 'jhkang@hanmail.com', '559-7777')
+	,(105, '민병국', '대전 전민동', 'bgmin@hotmail.com', '559-8741')
+	,(106, '오민수', '광주 북구', 'msoh@microsoft.com', '542-9988');
+
+-- 4
+INSERT INTO orders(orderno, orderdate, address, phone, status, cno)
+VALUES
+(
+	1
+	,SYSDATE()-INTERVAL 3 DAY
+	,'서울 강남구'
+	,'899-6666'
+	,'결제완료'
+	,(SELECT cno FROM customers WHERE cname = '김철수')
+)
+
+
+
+INSERT INTO ORDERDETAIL(orderno, pno, qty, cost)
+VALUES
+(
+	1
+	,(SELECT pno FROM product WHERE pname = '삼양라면')
+	,'50'
+	,'1000'
+)
+
+-- 5
+UPDATE product 
+SET stock = 150
+WHERE pno = 1001
+
+-- 6
+INSERT into orders(orderno, orderdate, address, phone, status, cno)
+VALUE(
+	2,
+	SYSDATE() - INTERVAL 2 DAY,
+	'부산 수영구',
+	'337-5000',
+	'결제완료',
+	(SELECT cno
+	FROM customers
+	WHERE cname = '이영희')
+);
+
+INSERT into orderdetail(orderno, pno, qty, cost)
+VALUE(
+	2,
+	(SELECT pno
+	FROM product
+	WHERE pname = '새우깡'),
+	100,
+	1500
+),
+(
+	2,
+	(SELECT pno
+	FROM product
+	WHERE pname = '월드콘'),
+	150,
+	2000
+);
+
+-- 7
+UPDATE product 
+SET stock = 400
+WHERE pno = 1002;
+
+UPDATE product 
+SET stock = 200
+WHERE pno = 1003
+
+--8
+INSERT INTO orders
+    (orderno, orderdate, address, phone, status, cno)
+VALUES
+(
+    3,
+    SYSDATE() - INTERVAL 1 DAY,
+    '광주 북구',
+    '652-2277',
+    '결제완료',
+    (SELECT cno
+     FROM customers
+     WHERE cname = '오민수')
+);
+
+INSERT INTO orderdetail
+    (orderno, pno, qty, cost)
+VALUES
+(
+    3,
+    (SELECT pno
+     FROM product
+     WHERE pname = '빼빼로'),
+    100,
+    2000
+),
+(
+    3,
+    (SELECT pno
+     FROM product
+     WHERE pname = '코카콜라'),
+    50,
+    1800
+);
+
+-- 9
+UPDATE product 
+SET stock = 600
+WHERE pno = 1004;
+
+UPDATE product 
+SET stock = 500
+WHERE pno = 1005
+
+-- 10
+SELECT o.orderdate,
+       c.cname,
+       o.address,
+       o.phone,
+       o.status,
+       p.pname,
+       od.cost,
+       od.qty,
+       od.cost * od.qty AS 'cost*qty'
+FROM orders o
+JOIN customers c
+    ON o.cno = c.cno
+JOIN orderdetail od
+    ON o.orderno = od.orderno
+JOIN product p
+    ON od.pno = p.pno
+ORDER BY o.orderno, p.pno;
+
+-- 11
+SELECT o.orderdate,
+       SUM(od.cost * od.qty) AS 'sum(cost*qty)'
+FROM orders o
+JOIN orderdetail od
+    ON o.orderno = od.orderno
+GROUP BY o.orderdate
+ORDER BY o.orderdate;
+
+--12
+INSERT INTO product (pno, pname, cost, stock)
+VALUES (1007, '목캔디', 3000, 500);
+
+--13
+INSERT INTO orders
+    (orderno, orderdate, address, phone, status, cno)
+VALUES
+(
+    4,
+    SYSDATE(),
+    '제주 동광양',
+    '352-4657',
+    '결제완료',
+    (SELECT cno
+     FROM customers
+     WHERE cname = '최진국')
+);
+
+INSERT INTO orderdetail
+    (orderno, pno, qty, cost)
+VALUES
+(
+    4,
+    (SELECT pno
+     FROM product
+     WHERE pname = '목캔디'),
+    200,
+    3000
+);
+
+UPDATE product
+SET stock = stock - 200
+WHERE pno = 1007;
+
+SELECT o.orderdate,
+       c.cname,
+       o.address,
+       o.phone,
+       o.status,
+       p.pname,
+       od.cost,
+       od.qty,
+       od.cost * od.qty AS 'cost*qty'
+FROM orders o
+JOIN customers c
+    ON o.cno = c.cno
+JOIN orderdetail od
+    ON o.orderno = od.orderno
+JOIN product p
+    ON od.pno = p.pno
+ORDER BY o.orderno, p.pno;
+
+desc PRODUCT;
+DESC customers;
+DESC orders;
+DESC ORDERDETAIL;
+
+SELECT * FROM PRODUCT;
+SELECT * FROM customers;
+SELECT * FROM orders;
+SELECT * FROM ORDERDETAIL;
+
+
+
+
 
 
 
