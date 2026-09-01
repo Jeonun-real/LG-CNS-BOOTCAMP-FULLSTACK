@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration;
 
+//framework에서 위임된 객체 -> bean 표시
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class DemoApplication {
 
@@ -13,7 +14,7 @@ public class DemoApplication {
 	build - ./gradle bootjar - xxxx.jar
 	deploy = staert tomcat server -(xxxx.jar)
 	*/
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
