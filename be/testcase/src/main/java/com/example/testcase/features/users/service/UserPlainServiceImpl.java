@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.example.testcase.features.users.domain.dto.UserRequestDTO;
 import com.example.testcase.features.users.domain.dto.UserResponseDTO;
 
-@Service
+@Service(value = "plain")
 public class UserPlainServiceImpl implements UserService {
 
     @Override

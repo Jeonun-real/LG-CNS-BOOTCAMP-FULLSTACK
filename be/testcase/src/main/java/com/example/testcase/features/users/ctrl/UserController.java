@@ -1,6 +1,7 @@
 package com.example.testcase.features.users.ctrl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.testcase.features.users.domain.dto.UserRequestDTO;
+import com.example.testcase.features.users.domain.dto.UserResponseDTO;
 import com.example.testcase.features.users.service.UserEncryptionServiceImpl;
 import com.example.testcase.features.users.service.UserService;
 
@@ -27,11 +29,17 @@ public class UserController {
     //http://id:port/users/signIn ? email=xxxxxx&password=xxxxxx
     @GetMapping("/signIn")
     public ResponseEntity<?> signIn(UserRequestDTO request){
+        
         System.out.println("UserController signIn get mapping");
         System.out.println("UserController signIn params: " + request);  
         System.out.println("UserController servicebinding " + userService);  
-
-        return null;
+        
+        UserResponseDTO response = userService.signIn(request);
+        
+        return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .header("access-token","12345")
+                    .body("response");
     }
 
 }
