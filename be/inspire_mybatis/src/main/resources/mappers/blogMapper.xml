@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.example.inspire_mybatis.features.blogs.repository.BlogMapper">
+    
+    <select id="findByAll"
+                resultType="com.example.inspire_mybatis.features.blogs.domain.dto.BlogResponseDTO">
+        select
+            id, title, content,category,email
+        from
+            SPRING_BLOG_TBL
+    </select>
+
+    <!-- save --> 
+
+    <insert id="save" parameterType="com.example.inspire_mybatis.features.blogs.domain.dto.BlogRequestDTO">
+        insert into SPRING_BLOG_TBL(id,TITLE,content,category,email)
+        values(NEXTVAL(BLOG_SEQ),#{title}, #{content}, #{category}, #{email})
+    </insert>
+
+    <!-- findById --> 
+
+    <select id="findById"
+                     parameterType="java.lang.Integer"  
+                     resultType="com.example.inspire_mybatis.features.blogs.domain.dto.BlogResponseDTO">
+        select
+            id, title, content,category,email
+        from
+            SPRING_BLOG_TBL
+        where
+            ID = #{id}
+
+    </select>
+
+</mapper>

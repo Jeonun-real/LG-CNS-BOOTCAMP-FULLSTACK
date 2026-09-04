@@ -1,11 +1,13 @@
 package com.example.inspire_mybatis.features.users.ctrl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
@@ -51,19 +54,33 @@ public class UserController {
             schema      = @Schema(implementation = UserRequestDTO.class) 
             ) 
         )
-        @RequestBody UserRequestDTO request) {
+        @Valid @RequestBody UserRequestDTO request, BindingResult bindingResult) {
         System.out.println("debug >>>> user controller signup ");
         System.out.println("debug >>>> user controller signup params : "+request); 
-        int signUpFlag = userService.SingUp(request);
-        if(signUpFlag !=0){
+        System.out.println("debug>>> user controller signup validation error" + bindingResult);
+        
+        if (bindingResult.hasErrors()) {
+
+            Map<String, String> errorMap = new HashMap<>();
+
+            bindingResult.getFieldErrors().forEach(error -> {
+                String field = error.getField();
+                String message = error.getDefaultMessage();
+
+                errorMap.put(field, message);
+            });
+
             return ResponseEntity
-                        .status(HttpStatus.CREATED)
-                        .body(null);
-        }else{
-            return ResponseEntity
-                            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                            .body(null);
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(errorMap);
         }
+        
+        int signUpFlag = userService.SingUp(request);
+        
+
+        return signUpFlag != 0
+            ? ResponseEntity.status(HttpStatus.CREATED).build()
+            : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
     
 

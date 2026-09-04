@@ -75,7 +75,8 @@ const WelcomeMessage = styled.div`
 const BlogReadPage = () => {
     const {blogId} = useParams();
     const user = localStorage.getItem('user');
-    console.log(`debug >>>> BlogReadPage rendering ${blogId} , ${user}`); 
+    const at = localStorage.getItem('at');
+    console.log(`debug >>>> BlogReadPage rendering ${blogId} , ${user}, ${at}`); 
 
 
     // 블로그정보
@@ -123,8 +124,15 @@ const BlogReadPage = () => {
         // 1:N 관계
         // - axios - get(blogs/&{}?_embed=comments)
         const id = blogId
-        await api.get(`/blogs/${id}?_embed=comments`)
-                .then( response => {
+
+        // await api.get(`/blogs/${id}?_embed=comments`)
+
+
+    //spiring boot
+    await api.get(`/blogs/read/${id}`,{
+        headers : {Authorization: at ? at:""}   
+    })
+        .then( response => {
                     console.log(`debug >>>> axios request success` , response);  
                     if(response.status === 200) {
                         setBlog(response.data); 
@@ -153,7 +161,12 @@ const BlogReadPage = () => {
         */
         console.log(`debug >>>> commentHandler event`);
         let email = user ;
-        await api.post('/comments', {blogId : Number(blogId), comment, email})
+
+
+        // await api.post('/comments', {blogId : Number(blogId), comment, email})
+            await api.post('/comments/insert', {blogId : Number(blogId), comment, email},{
+                headers:{Authorization:at ? at :""}
+            })
                 .then( response => {
 
                     console.log(`debug >>>> axios request success` , response);  
@@ -179,10 +192,15 @@ const BlogReadPage = () => {
         - axios delete('/comments/${id}') , status 204(NO_CONTENT) 
         - 삭제될 comment id 만 필터링해서 re-rendering 
         */
-        await api.delete(`/comments/${id}`)
+        // await api.delete(`/comments/${id}`)
+        
+        //spring boot version
+        await api.delete(`/comments/delete/${id}`,{
+            headers : {Authorization: at ? at:""}
+        })
                 .then( response => {
                     console.log(`debug >>>> axios request success` , response);  
-                    if(response.status === 200) {
+                    if(response.status === 204) {
                         setComments(comments.filter( (c) => {
                             return c.id !== id 
                         }));
@@ -199,12 +217,30 @@ const BlogReadPage = () => {
         console.log(`debug >>>> commentUpdateHandler id ${id}, mention ${mention}`);
 
         // update : axios put(전체교체), patch(부분수정) 
-        await api.patch(`/comments/${id}` , {
-            comment : mention
-        })
+        // await api.patch(`/comments/${id}` , {
+        
+        //spring boot 방식
+        // await api.patch(`/comments/${id}` , {
+        //     comment : mention
+        // }, {headers:{Authorization:at ? at :""}})
+        // .then( response => {
+        //     console.log(`debug >>>> axios request success` , response);  
+        //     if(response.status === 200) {
+        //         setComments( ary => {
+        //             return ary.map( comment => {
+        //                 return comment.id === id ? {...comment , comment : mention} : comment
+        //             })
+        //         })        
+        //     }
+        // })
+        // .catch( error => {
+        //     console.log(`debug >>>> axios request error` , error); 
+        // });
+
+        await api.patch(`/comments/update${id}/${encodeURIComponent(mention)}` , null, {headers:{Authorization:at ? at :""}})
         .then( response => {
             console.log(`debug >>>> axios request success` , response);  
-            if(response.status === 200) {
+            if(response.status === 204) {
                 setComments( ary => {
                     return ary.map( comment => {
                         return comment.id === id ? {...comment , comment : mention} : comment

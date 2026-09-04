@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.example.inspire_mybatis.features.comments.repository.CommentMapper">
+    
+    <select id="findByBlogId"
+            parameterType="java.lang.Integer" 
+            resultType="com.example.inspire_mybatis.features.comments.domain.dto.CommentResponseDTO">
+
+        select
+            ID, COMMENT, EMAIL, BLOGID
+        from
+            SPRING_COMMENT_TBL
+        where
+            BLOGID=#{blogId}
+        ORDER BY ID DESC
+    </select>
+
+    <!-- save --> 
+
+    <insert id="save"
+            parameterType="com.example.inspire_mybatis.features.comments.domain.dto.CommentRequestDTO">
+        <selectKey keyProperty="id"
+                    resultType="int"
+                    order="BEFORE">
+            select NEXTVAL(comment_seq)
+        </selectKey>
+        insert into SPRING_COMMENT_TBL(id,COMMENT,EMAIL,BLOGID)
+        values(#{id},#{comment}, #{email}, #{blogId})
+    </insert>
+
+
+    <!-- delete --> 
+
+    <delete id="delete"
+            parameterType="java.lang.Integer">
+        delete from SPRING_COMMENT_TBL
+        where id = #{id}
+    </delete>
+
+    <update id="update"
+            parameterType="java.util.HashMap">
+    Update 
+        SPRING_COMMENT_TBL
+    set
+        comment = #{comment}
+    where 
+        id = #{id}
+    
+
+    </update>
+
+</mapper>

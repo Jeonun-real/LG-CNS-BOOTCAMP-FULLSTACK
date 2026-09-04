@@ -77,9 +77,23 @@ const TextLink = styled(Link)`
 
 // npm install styled-components @mui/material @mui/icons-material @emotion/react @emotion/styled
 
+const ErrorMessage = styled.p`
+  color : red;
+  font-size : 13px;
+  margin : 6px 0 0 2px;
+`;
+
+
+
 const SignUpPage = () => {
 
     const [form, setForm] = useState({
+        name : '',
+        email : '',
+        password : ''
+    }) ;
+
+    const [errors, setErrors] = useState({
         name : '',
         email : '',
         password : ''
@@ -128,6 +142,8 @@ const SignUpPage = () => {
                 })
                 .catch( error => {
                     console.log(`debug >>>> axios request error` , error); 
+                    console.log(`debug >>>> axios request error` , error.response.data); 
+                    setErrors(error.response.data);
                 }) 
     }
 
@@ -136,17 +152,20 @@ const SignUpPage = () => {
         <Container>
             <FormWrapper>
                 <Title>회원가입</Title>
-                <form onSubmit={signUpHandler}>
+                <form onSubmit={signUpHandler}>                    
+                    {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
                     <Input  type='text' 
                             name='name'
                             placeholder="이름 입력하세요"
                             value={form.name} 
                             onChange={keyHandler}/>
+                    {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
                     <Input  type='email' 
                             name='email'
                             placeholder="이메일 입력하세요"
                             value={form.email} 
                             onChange={keyHandler}/>
+                    {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
                     <Input  type='password' 
                             name='password'
                             placeholder="패스워드 입력하세요"

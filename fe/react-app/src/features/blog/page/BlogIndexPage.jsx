@@ -132,7 +132,7 @@ const BlogIndexPage = () => {
     */
     const loadData = async () => {
         // json-server version
-        await api.get(`/blogs`)
+        await api.get(`/blogs/index`)
                 .then( response => {
                     console.log(`debug >>>> axios request success` , response);  
                     if(response.status === 200) {

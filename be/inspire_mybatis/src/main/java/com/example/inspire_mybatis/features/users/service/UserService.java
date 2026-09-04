@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.example.inspire_mybatis.features.commons.exception.users.LoginFailException;
 import com.example.inspire_mybatis.features.commons.token.JwtProvider;
 import com.example.inspire_mybatis.features.users.domain.dto.UserRequestDTO;
 import com.example.inspire_mybatis.features.users.domain.dto.UserResponseDTO;
@@ -31,7 +32,7 @@ public class UserService {
         UserResponseDTO response =
             userMapper
                 .signIn(request)
-                .orElseThrow(() -> new RuntimeException("로그인실패"));
+                .orElseThrow(() -> new LoginFailException("로그인실패"));
 
         //사용자 로그인이 정상적으로 수행되면 token 발급
         System.out.println("sign in token provider");
