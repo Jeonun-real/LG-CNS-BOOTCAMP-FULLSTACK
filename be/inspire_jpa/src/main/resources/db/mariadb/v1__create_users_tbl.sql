@@ -1,0 +1,10 @@
+CREATE TABLE flyway_users_tbl (
+    email       VARCHAR(100)    NOT NULL PRIMARY KEY,
+    password    VARCHAR(100)    NOT NULL,
+    name        VARCHAR(50)     NOT NULL,
+    role        VARCHAR(50)
+    -- created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    -- updated_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+

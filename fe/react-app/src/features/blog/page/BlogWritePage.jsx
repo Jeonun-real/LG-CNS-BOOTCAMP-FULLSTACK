@@ -88,6 +88,7 @@ const CategoryChip = styled.button`
 const BlogWritePage = () => {
     const user = localStorage.getItem('user');
     const CATEGORIES = ["개발", "생활", "취미", "일상"];
+    const at = localStorage.getItem('at');
 
     const moveUrl = useNavigate();
 
@@ -111,6 +112,8 @@ const BlogWritePage = () => {
                     content,
                     category,
                     email : user
+                },{
+                    headers : {Authorization: at ? at:""}
                 })
                 .then( response => {
                     console.log(`debug >>>> axios request success` , response);  

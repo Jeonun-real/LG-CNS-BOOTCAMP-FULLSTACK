@@ -116,11 +116,11 @@ const SignInPage = () => {
         //springboot version
         // await api.get(`/users/signIn?email=${form.email}&password=${form.password}`)
         await api.get(`/users/signIn`, {
-        params : {
-            email : form.email,
-            password : form.password
-        }
-         })
+            params : {
+                email : form.email,
+                password : form.password
+            }
+            })
                 .then( response => {
                     console.log(`debug >>>> axios request success` , response);  
                     if(response.status === 200) {

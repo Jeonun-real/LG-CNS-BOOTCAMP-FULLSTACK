@@ -105,6 +105,8 @@ const CategoryChip = styled.button`
 const BlogIndexPage = () => {
     
     const CATEGORIES = ["전체", "개발", "생활", "취미", "일상"];
+
+    const at = localStorage.getItem('at');
     
     const user = localStorage.getItem('user');
 
@@ -132,7 +134,9 @@ const BlogIndexPage = () => {
     */
     const loadData = async () => {
         // json-server version
-        await api.get(`/blogs/index`)
+        await api.get(`/blogs/index`,{
+            headers : {Authorization: at ? at:""}
+        })
                 .then( response => {
                     console.log(`debug >>>> axios request success` , response);  
                     if(response.status === 200) {
@@ -140,7 +144,7 @@ const BlogIndexPage = () => {
                     }
                 })
                 .catch( error => {
-                    console.log(`debug >>>> axios request error` , error); 
+                    console.log(`d  ebug >>>> axios request error` , error); 
                 });
     }
     useEffect(() => {

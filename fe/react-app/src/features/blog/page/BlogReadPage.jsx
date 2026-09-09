@@ -259,8 +259,8 @@ const BlogReadPage = () => {
     return(
         <Wrapper>
                     
-            { !blog.id && <Spinner /> }
-            { blog.id && 
+            { !blog.blogId && <Spinner /> }
+            { blog.blogId && 
                <Container>
                     {user && <WelcomeMessage>{user}님 환영합니다.</WelcomeMessage>} 
                     <Button title='메인페이지' 
