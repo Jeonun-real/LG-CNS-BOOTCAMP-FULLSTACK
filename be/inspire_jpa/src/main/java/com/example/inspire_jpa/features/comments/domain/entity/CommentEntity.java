@@ -15,7 +15,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.bytebuddy.dynamic.TypeResolutionStrategy.Lazy;
 
 @Entity 
 @Table (name = "SPRING_JPA_COMMENT_TBL")

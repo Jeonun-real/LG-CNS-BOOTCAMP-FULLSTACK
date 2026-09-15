@@ -56,8 +56,28 @@ spring:
         # mariadb
         dialect: org.hibernate.dialect.MariaDBDialect 
         format_sql: true 
+  # redis
+  # docker : image(docker hub) <- contariner 실행
+  # docker run -d --name redis-contiainer -p 6379:6379 redis:7.2
+  # docker exec -it --name redis-contiainer redis-cli 
 
+  # docker run -d --name redis-insight -p 8001:5540 redis/redisinsight:latest
+  # http://localhost:8001
+  # host: host.docker.internal, redis
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      timeout: 6000ms
+
+  ai:
+    openai:
+      api-key: ${OPEN_AI_KEY}
+      chat:
+        options:
+          model: ${OPEN_AI_MODEL}
 
 # mybatis:
 #   mapper-locations: classpath:/mappers/**/*Mapper.xml

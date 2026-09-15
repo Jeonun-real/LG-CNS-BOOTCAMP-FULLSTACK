@@ -21,7 +21,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@Component 
+//spring filter 사용으로 jwt 필더 사용 안 함.
+// @Component 
 public class JwtFilter implements  Filter{
 
     @Value("${jwt.secret}") 
@@ -68,13 +69,16 @@ public class JwtFilter implements  Filter{
         if("OPTIONS".equalsIgnoreCase(req.getMethod())) {
             System.out.println("debug >>>> JwtFilter preflight"); 
             // header set : Origin, Method, Header 
+            String origin = req.getHeader("Origin");
             res.setStatus(HttpServletResponse.SC_OK); 
-            res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+            if ("http://localhost:3200".equals(origin)
+                    || "http://127.0.0.1:3200".equals(origin)) {
+                res.setHeader("Access-Control-Allow-Origin", origin);
+            }
             res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT,PATCH, DELETE, OPTIONS");
             res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Refresh-token");
             res.setHeader("Access-Control-Allow-Credentials", "true");
 
-            chain.doFilter(request, response);
             return ;
 
         }

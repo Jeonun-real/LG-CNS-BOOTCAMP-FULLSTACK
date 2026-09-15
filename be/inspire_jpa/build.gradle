@@ -17,11 +17,15 @@ repositories {
 	mavenCentral()
 }
 
+configurations.configureEach {
+	exclude group: 'io.swagger.core.v3', module: 'swagger-annotations'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.1.1'
 	implementation 'io.github.cdimascio:dotenv-java:3.2.0'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -36,6 +40,24 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	//in Memory DB: H2, redis
+	implementation "org.springframework.boot:spring-boot-starter-data-redis"
+
+	// security
+	implementation "org.springframework.boot:spring-boot-starter-security"
+
+	//spring ai + gpt openao
+	implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+	implementation 'org.springframework.ai:spring-ai-starter-mcp-server-webmvc'
+    implementation 'org.springframework.ai:spring-ai-starter-mcp-client'
+
+	//spring ai
+	implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	implementation platform('org.springframework.ai:spring-ai-bom:2.0.0')
+
 }
 
 tasks.named('test') {

@@ -23,7 +23,7 @@ import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +53,9 @@ Users -------------------> Blogs ----------------------> Comments
 public class UserController {
  
     private final UserService userService ;
+    private final PasswordEncoder passwordEncoder;
+
+
     
     @Operation(summary = "회원가입", description = "신규가입(email, password, name)")
     @ApiResponses(
@@ -96,7 +99,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errMap); 
         }
 
-
+        // spring security password hashing
+        // tobuilder()를 통해서 일부 수정할때 기존 객체를 복사해서 추가하는 리펙토링
         UserResponseDTO response = userService.signUp(request);
         return ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -144,6 +148,16 @@ public class UserController {
                 .headers(headers)
                 .body( (UserResponseDTO)(map.get("response"))) ; 
     }
+
+
+    @PostMapping("/signOut")
+    public ResponseEntity<?> signOut() {
+        System.out.println("debug >>>> user controller signup ");
+
+        userService.signOut();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+    
     
 }
 

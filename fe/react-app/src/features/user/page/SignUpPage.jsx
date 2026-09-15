@@ -142,8 +142,8 @@ const SignUpPage = () => {
                 })
                 .catch( error => {
                     console.log(`debug >>>> axios request error` , error); 
-                    console.log(`debug >>>> axios request error` , error.response.data); 
-                    setErrors(error.response.data);
+                    console.log(error.response?.data);
+                    setErrors(error.response?.data ?? {});
                 }) 
     }
 
@@ -169,7 +169,7 @@ const SignUpPage = () => {
                     <Input  type='password' 
                             name='password'
                             placeholder="패스워드 입력하세요"
-                            value={form.passwrd} 
+                            value={form.password} 
                             onChange={keyHandler}/>
                     <Button type='submit'>가입하기</Button>
                 </form>

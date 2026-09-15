@@ -202,7 +202,7 @@ const BlogReadPage = () => {
                     console.log(`debug >>>> axios request success` , response);  
                     if(response.status === 204) {
                         setComments(comments.filter( (c) => {
-                            return c.id !== id 
+                            return c.commentId !== id 
                         }));
                     }
                 })
@@ -237,7 +237,7 @@ const BlogReadPage = () => {
         //     console.log(`debug >>>> axios request error` , error); 
         // });
 
-        await api.patch(`/comments/update${id}/${encodeURIComponent(mention)}` , null, {headers:{Authorization:at ? at :""}})
+        await api.patch(`/comments/update/${id}/${encodeURIComponent(mention)}` , null, {headers:{Authorization:at ? at :""}})
         .then( response => {
             console.log(`debug >>>> axios request success` , response);  
             if(response.status === 204) {

@@ -3,7 +3,11 @@ package com.example.inspire_jpa.features.blogs.service;
 import com.example.inspire_jpa.features.users.repository.UserRepository;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,13 +15,19 @@ import com.example.inspire_jpa.features.blogs.domain.dto.BlogRequestDTO;
 import com.example.inspire_jpa.features.blogs.domain.dto.BlogResponseDTO;
 import com.example.inspire_jpa.features.blogs.domain.entity.BlogEntity;
 import com.example.inspire_jpa.features.blogs.repository.BlogRepository;
+import com.example.inspire_jpa.features.openai.domain.RecommandResponseDTO;
 
 import lombok.RequiredArgsConstructor;
+import okhttp3.OkHttpClient;
 
 @Service 
 @RequiredArgsConstructor 
 public class BlogService {
     
+    private final ChatClient chatClient;
+
+    private final OkHttpClient okHttpClient;
+
     private final UserRepository    userRepository;
     private final BlogRepository    blogRepository ;
 
@@ -41,7 +51,13 @@ public class BlogService {
         3. save() 
         */
 
-        return userRepository.findById(request.getEmail())
+        // email from sercurity context holder
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        System.out.println("debug >>>> blog service insert params email : "+request.getEmail()); 
+        System.out.println("debug >>>> blog service securitycontext holder email : "+email); 
+
+        return userRepository.findById(email)
                     .map(user -> {
                         BlogEntity blog = blogRepository.save(
                             request.toEntity(user)
@@ -98,17 +114,34 @@ public class BlogService {
         //         .orElseThrow(() -> new RuntimeException(id+" BLOG NOT FOUND")) ;
 
         // 단순 blog
-        return blogRepository.findByComments(id)
-                    .map(BlogResponseDTO::fromEntity)
-                    .orElseThrow(() -> new RuntimeException(id+" BLOG NOT FOUND")) ;
+        // return blogRepository.findByComments(id)
+        //             .map(BlogResponseDTO::fromEntity)
+        //             .orElseThrow(() -> new RuntimeException(id+" BLOG NOT FOUND")) ;
 
         // blog + comments
-        // return blogRepository.findByComments(id)
-        //             .map(BlogResponseDTO::fromEntityWithComments)
-        //             .orElseThrow(() -> new RuntimeException(id+" BLOG NOT FOUND")) ;
+        return blogRepository.findByComments(id)
+                    .map(BlogResponseDTO::fromEntityWithComments)
+                    .orElseThrow(() -> new RuntimeException(id+" BLOG NOT FOUND")) ;
     }
 
+    public String contentGenerate(Map<String, Object> map){
+        String result = chatClient
+            .prompt()
+            .user("""
+                넌 일본의 나츠메소세키 작가의 문체를 바타응로 블로그를 작성하는 전문가야
+                주어진 카테고리와 키워드를 기반으로 나츠메소세키 문체의 블로그를 작성해줘
+                글자수는 200자 이내로 작성해줘
+                <조건>
+                    - 카테고리 : "%s"
+                    - 키워드 : "%s"
+                </조건>
+                """.formatted((String)(map.get("catergory")),
+                              (String)(map.get("keyword"))))
+            .call()
+            .content();
+        return result;
 
+    }
 
 
 }

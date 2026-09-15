@@ -151,7 +151,7 @@ const BlogIndexPage = () => {
         loadData() ;
     }, []);
     
-    
+  
     // 선택된 카테고리에 따라 blogs 필터링
     const [selectedCategory, setSelectedCategory] = useState("전체");
     // case 01
@@ -172,6 +172,24 @@ const BlogIndexPage = () => {
     const writeHandler = (e) => {
         moveUrl('/blogs/write'); 
     };
+    
+    
+    const logoutHandler = async (e) => {
+
+            await api.post(`/users/signOut`, null, {
+                        headers : {Authorization : at ? at : "" }
+                    })
+                    .then( response => {
+                        console.log(`debug >>>> axios request success` , response);
+                        if(response.status === 204) {
+                            moveUrl('/'); 
+                        }
+                    })
+                    .catch( error => {
+                        console.log(`debug >>>> axios request error` , error); 
+                    });
+
+        };
 
     return (
         <Wrapper>
@@ -181,9 +199,7 @@ const BlogIndexPage = () => {
                     <Button title='글 작성하기'
                             onClick={(e) => writeHandler(e)}></Button>
                     <Button title='로그아웃'
-                            onClick={(e) => {
-                                moveUrl("/");
-                            } }></Button>
+                            onClick={(e) => logoutHandler(e)}></Button>
                     <Button title='기상예보'></Button>
                     <Button title='OpenAPI'
                             onClick={(e) => {

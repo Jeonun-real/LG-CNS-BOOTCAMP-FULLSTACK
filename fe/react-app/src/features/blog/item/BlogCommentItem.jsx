@@ -51,7 +51,7 @@ const BlogCommentItem = ({comment, handler, updateHandler}) => {
             - 당연히 json-server 수정이 되어야 함.
             */
             // 수정완료모드 ON
-            updateHandler(comment.id, mention); // read page : commnetUpdateHandler();
+            updateHandler(comment.commentId, mention); // read page : commnetUpdateHandler();
             setIsEdit(false) ;
         }
     }
@@ -68,7 +68,7 @@ const BlogCommentItem = ({comment, handler, updateHandler}) => {
                 user === comment.email &&
                     <div>
                         <Button title='삭제'
-                                onClick={(e) => handler(e, comment.id)} /> 
+                                onClick={(e) => handler(e, comment.commentId)} /> 
                         &nbsp;&nbsp;
                         <Button title={ isEdit ? '수정완료' : '수정' }
                                 onClick={(e) => updateMentionHandler(e)} />                     
