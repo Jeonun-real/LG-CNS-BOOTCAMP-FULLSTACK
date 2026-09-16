@@ -39,7 +39,9 @@ public class JwtFilter implements  Filter{
     private static final List<String> WHITE_LIST = List.of(
         "/users/**",
         "/swagger-ui/**",
-        "/v3/api-docs/**"
+        "/v3/api-docs/**",
+        "/openai/**",
+        "/openapi/**"
     );
 
     private final AntPathMatcher matcher = new AntPathMatcher();

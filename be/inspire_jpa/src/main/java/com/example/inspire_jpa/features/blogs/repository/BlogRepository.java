@@ -24,6 +24,23 @@ public interface BlogRepository extends JpaRepository<BlogEntity, Integer>{
         WHERE       b.blogId = :blogId
     """)
     public Optional<BlogEntity> findByComments(@Param("blogId") Integer blogId);
+
+    //LIKE '%keyword%'
+    // public List<BlogEntity> findByContentAndCategoryContainingIgnoreCase(){
+
+    // }
+
+    @Query("""
+        SELECT b
+        FROM BlogEntity b
+        WHERE LOWER(b.content) LIKE LOWER(CONCAT('%', :content, '%'))
+        AND b.category = :category
+    """)
+    
+    Optional<BlogEntity> findByContentAndCategory(
+            @Param("content") String content,
+            @Param("category") String category
+    );
 }
 
 

@@ -62,7 +62,8 @@ public class SecretConfig {
                         "/users/**",
                                     "/swagger-ui/**",
                                     "/v3/api-docs/**",
-                                    "/openai/**").permitAll() 
+                                    "/openai/**",
+                                    "/openapi/**").permitAll() 
                                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                     .requestMatchers("/admin/**").hasRole("ADMIN")  
                                  .anyRequest().authenticated()

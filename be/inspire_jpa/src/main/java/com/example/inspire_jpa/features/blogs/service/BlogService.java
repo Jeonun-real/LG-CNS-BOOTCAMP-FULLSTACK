@@ -24,7 +24,9 @@ import okhttp3.OkHttpClient;
 @RequiredArgsConstructor 
 public class BlogService {
     
-    private final ChatClient chatClient;
+    //agent 시용시 주석 필요
+    //ai
+    // private final ChatClient chatClient;
 
     private final OkHttpClient okHttpClient;
 
@@ -124,23 +126,33 @@ public class BlogService {
                     .orElseThrow(() -> new RuntimeException(id+" BLOG NOT FOUND")) ;
     }
 
-    public String contentGenerate(Map<String, Object> map){
-        String result = chatClient
-            .prompt()
-            .user("""
-                넌 일본의 나츠메소세키 작가의 문체를 바타응로 블로그를 작성하는 전문가야
-                주어진 카테고리와 키워드를 기반으로 나츠메소세키 문체의 블로그를 작성해줘
-                글자수는 200자 이내로 작성해줘
-                <조건>
-                    - 카테고리 : "%s"
-                    - 키워드 : "%s"
-                </조건>
-                """.formatted((String)(map.get("catergory")),
-                              (String)(map.get("keyword"))))
-            .call()
-            .content();
-        return result;
+    // public String contentGenerate(Map<String, Object> map){
+    //     String result = chatClient
+    //         .prompt()
+    //         .user("""
+    //             넌 일본의 나츠메소세키 작가의 문체를 바타응로 블로그를 작성하는 전문가야
+    //             주어진 카테고리와 키워드를 기반으로 나츠메소세키 문체의 블로그를 작성해줘
+    //             글자수는 200자 이내로 작성해줘
+    //             <조건>
+    //                 - 카테고리 : "%s"
+    //                 - 키워드 : "%s"
+    //             </조건>
+    //             """.formatted((String)(map.get("catergory")),
+    //                           (String)(map.get("keyword"))))
+    //         .call()
+    //         .content();
+    //     return result;
 
+    // }
+
+    public List<BlogResponseDTO> searchByKeyword(Map<String, Object> map){
+        System.out.println(">>>> blog service searchbykeyword by blogai tools");
+        return blogRepository
+                    .findByContentAndCategory((String)(map.get("keyword")), 
+                                              (String)(map.get("category")))
+                                              .stream()
+                                              .map(BlogResponseDTO::fromEntity)
+                                              .toList();
     }
 
 

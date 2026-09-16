@@ -16,10 +16,10 @@ public class OpenAiConfig {
         return new ObjectMapper();
     }
 
-    @Bean 
-    public ChatClient chatClient(ChatClient.Builder builder) {
-        return builder.build();
-    }
+    // @Bean 
+    // public ChatClient chatClient(ChatClient.Builder builder) {
+    //     return builder.build();
+    // }
 
     @Bean 
     public OkHttpClient okHttpClient(){
