@@ -229,7 +229,7 @@ const WeatherPage = () => {
     const getCoordsByCity = (cityName) => {
         console.log(`debug >>>> getCoordsByCity city name  ` , cityName);  
         const geocoder = new window.kakao.maps.services.Geocoder();
-        geocoder.addressSearch(cityName, (result, status, { analyze_type: SIMILAR} ) => {
+        geocoder.addressSearch(cityName, (result, status) => {
             console.log(`debug >>>> getCoordsByCity status  ` , status);  
             console.log(`debug >>>> getCoordsByCity status ok  ` , window.kakao.maps.services.Status.OK);  
             console.log(`debug >>>> getCoordsByCity result  ` , result);  
@@ -265,7 +265,6 @@ const WeatherPage = () => {
 
 
 export default WeatherPage ;
-
 
 
 

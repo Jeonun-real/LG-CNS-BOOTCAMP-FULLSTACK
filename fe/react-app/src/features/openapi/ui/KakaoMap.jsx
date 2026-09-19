@@ -6,46 +6,50 @@ const KakaoMap = ({ setWeatherByCoords, moveTo} ) => {
     const markerRef   = useRef(null);
 
     useEffect(() => {
+        if (!window.kakao?.maps) {
+            console.error("카카오맵 SDK가 로드되지 않았습니다.");
+            return;
+        }
+
         window.kakao.maps.load(() => {
-            navigator.geolocation.getCurrentPosition((position) => {
-                let lat = position.coords.latitude ; 
-                let lng = position.coords.longitude ;
+            const container = document.getElementById("map");
+            const centerPosition = new window.kakao.maps.LatLng(
+                37.5665,
+                126.9780
+            );
 
-                const container         = document.getElementById('map');
-                
-                // 서울시청
-                // center : new window.kakao.maps.LatLng(lat, lng),
-                const centerPosition    = new window.kakao.maps.LatLng(37.5665, 126.9780);
-                const map = new window.kakao.maps.Map(container, {
-                    center : centerPosition,
-                    level : 3 
-                });
-                const marker = new window.kakao.maps.Marker({
-                    position : centerPosition
-                });
-                marker.setMap(map); 
+            const map = new window.kakao.maps.Map(container, {
+                center: centerPosition,
+                level: 3
+            });
 
-                mapRef.current = map;
-                markerRef.current = marker;
+            const marker = new window.kakao.maps.Marker({
+                position: centerPosition
+            });
 
+            marker.setMap(map);
+            mapRef.current = map;
+            markerRef.current = marker;
 
-                window.kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+            window.kakao.maps.event.addListener(
+                map,
+                "click",
+                function (mouseEvent) {
                 const lat = mouseEvent.latLng.getLat();
                 const lng = mouseEvent.latLng.getLng();
 
-                marker.setPosition(new window.kakao.maps.LatLng(lat, lng));
-                setWeatherByCoords(lat, lng);
-                });
-
-            })
+                marker.setPosition(mouseEvent.latLng);
+                setWeatherByCoords?.(lat, lng);
+                }
+            );
         });
 
-    }, [])
+    }, []);
 
 
     // 외부에서 좌표 들어오면 지도 이동
     useEffect(() => {
-        if (!moveTo) return;
+        if (!moveTo?.lat || !moveTo?.lng) return;
         if (!mapRef.current || !markerRef.current) return;
 
         const lat = parseFloat(moveTo.lat);

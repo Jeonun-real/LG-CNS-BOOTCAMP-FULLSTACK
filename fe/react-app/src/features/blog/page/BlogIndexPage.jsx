@@ -191,6 +191,11 @@ const BlogIndexPage = () => {
 
         };
 
+    const forecastHander = (e) =>{
+        moveUrl("/forecast/index")
+    }
+
+
     return (
         <Wrapper>
             <Container>
@@ -200,7 +205,8 @@ const BlogIndexPage = () => {
                             onClick={(e) => writeHandler(e)}></Button>
                     <Button title='로그아웃'
                             onClick={(e) => logoutHandler(e)}></Button>
-                    <Button title='기상예보'></Button>
+                    <Button title='기상예보'
+                            onClick={(e) => forecastHander(e)}></Button>
                     <Button title='OpenAPI'
                             onClick={(e) => {
                                 moveUrl('/openapi/index')

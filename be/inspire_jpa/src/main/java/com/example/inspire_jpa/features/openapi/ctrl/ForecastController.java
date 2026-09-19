@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController 
-@RequestMapping("/openapi")
+@RequestMapping("/forecast")
 @RequiredArgsConstructor 
 public class ForecastController {
 
