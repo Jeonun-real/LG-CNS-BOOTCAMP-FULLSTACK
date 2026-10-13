@@ -1,8 +1,5 @@
 # LG CNS AM INSPIRE CAMP Fullstack Learning Archive
 
-LG CNS AM INSPIRE CAMP에서 학습한 코드를 정리한 Fullstack 저장소입니다.
----
-
 ## 학습 목록
 
 - Java 문법과 객체지향 설계 원리 이해
